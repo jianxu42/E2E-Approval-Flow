@@ -4,7 +4,7 @@ from datetime import datetime as dt_dt
 from typing import Generator
 
 import pytest
-from playwright.sync_api import Page, expect, Playwright, APIRequestContext
+from playwright.sync_api import expect, Playwright, APIRequestContext, BrowserContext
 
 APPROVAL_FLOW_TITLE_FOR_PORTAL = ''
 APPROVAL_FLOW_TITLE_FOR_TEAMS = ''
@@ -75,7 +75,9 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     assert approval_flow_for_mail_flow_run.ok
 
 
-def test_approval_portal(page: Page):
+def test_approval_portal(context: BrowserContext):
+    context.tracing.start(screenshots=True, snapshots=True, sources=True)
+    page = context.new_page()
     page.goto(TEST_APPROVAL_PORTAL)
 
     page.get_by_placeholder("Email, phone, or Skype").click()
@@ -97,8 +99,12 @@ def test_approval_portal(page: Page):
     locator = page.locator("'Respond: Approve'")
     expect(locator).to_contain_text("Respond: Approve")
 
+    context.tracing.stop(path="test_approval_portal_trace.zip")
 
-def test_approval_teams(page: Page):
+
+def test_approval_teams(context: BrowserContext):
+    context.tracing.start(screenshots=True, snapshots=True, sources=True)
+    page = context.new_page()
     page.goto("https://teams.microsoft.com/")
 
     page.get_by_placeholder("Email, phone, or Skype").click()
@@ -125,8 +131,12 @@ def test_approval_teams(page: Page):
     locator = approval_tab_view.locator("'Final status: Approved'")
     expect(locator).to_contain_text("Final status: Approved")
 
+    context.tracing.stop(path="test_approval_teams.zip")
 
-def test_approval_mail(page: Page):
+
+def test_approval_mail(context: BrowserContext):
+    context.tracing.start(screenshots=True, snapshots=True, sources=True)
+    page = context.new_page()
     page.goto("https://outlook.office.com/mail/")
 
     page.get_by_placeholder("Email, phone, or Skype").click()
@@ -151,3 +161,5 @@ def test_approval_mail(page: Page):
 
     locator = popup_page.locator("'Approved'")
     expect(locator).to_contain_text("Approved")
+
+    context.tracing.stop(path="test_approval_mail.zip")
