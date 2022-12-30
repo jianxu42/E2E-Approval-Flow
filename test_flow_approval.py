@@ -44,7 +44,7 @@ def test_trigger_approval_flow_for_portal(api_request_context: APIRequestContext
     }
     flow_run = api_request_context.post(TEST_FLOW, data=data)
     global PORTAL_FLOW_LOCATION
-    PORTAL_FLOW_LOCATION = flow_run.headers["Location"]
+    PORTAL_FLOW_LOCATION = flow_run.headers["location"]
     assert flow_run.ok
 
 
@@ -58,7 +58,7 @@ def test_trigger_approval_flow_for_teams(api_request_context: APIRequestContext)
     }
     flow_run = api_request_context.post(TEST_FLOW, data=data)
     global TEAMS_FLOW_LOCATION
-    TEAMS_FLOW_LOCATION = flow_run.headers["Location"]
+    TEAMS_FLOW_LOCATION = flow_run.headers["location"]
     assert flow_run.ok
 
 
@@ -72,7 +72,7 @@ def test_trigger_approval_flow_for_mail(api_request_context: APIRequestContext) 
     }
     flow_run = api_request_context.post(TEST_FLOW, data=data)
     global MAIL_FLOW_LOCATION
-    MAIL_FLOW_LOCATION = flow_run.headers["Location"]
+    MAIL_FLOW_LOCATION = flow_run.headers["location"]
     assert flow_run.ok
 
 
