@@ -1,4 +1,4 @@
-import datetime
+import datetime as dt
 import os
 import re
 from typing import Generator
@@ -40,46 +40,39 @@ def api_request_context(
     request_context.dispose()
 
 
-def test_trigger_approval_flow_for_portal(api_request_context: APIRequestContext) -> None:
-    now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")
+def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global APPROVAL_FLOW_TITLE_FOR_PORTAL
-    APPROVAL_FLOW_TITLE_FOR_PORTAL = f'test_approval@{now}'
-    data = {
+    APPROVAL_FLOW_TITLE_FOR_PORTAL = f'test_approval@{dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
+    approval_flow_for_portal_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_PORTAL,
         "tag": "pytest",
     }
-    flow_run = api_request_context.post(TEST_FLOW, data=data)
+    approval_flow_for_portal_flow_run = api_request_context.post(TEST_FLOW, data=approval_flow_for_portal_data)
     global PORTAL_FLOW_LOCATION
-    PORTAL_FLOW_LOCATION = flow_run.headers["location"]
-    assert flow_run.ok
+    PORTAL_FLOW_LOCATION = approval_flow_for_portal_flow_run.headers["location"]
+    assert approval_flow_for_portal_flow_run.ok
 
-
-def test_trigger_approval_flow_for_teams(api_request_context: APIRequestContext) -> None:
-    now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")
     global APPROVAL_FLOW_TITLE_FOR_TEAMS
-    APPROVAL_FLOW_TITLE_FOR_TEAMS = f'test_approval@{now}'
-    data = {
+    APPROVAL_FLOW_TITLE_FOR_TEAMS = f'test_approval@{dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
+    approval_flow_for_teams_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_TEAMS,
         "tag": "pytest",
     }
-    flow_run = api_request_context.post(TEST_FLOW, data=data)
+    approval_flow_for_teams_flow_run = api_request_context.post(TEST_FLOW, data=approval_flow_for_teams_data)
     global TEAMS_FLOW_LOCATION
-    TEAMS_FLOW_LOCATION = flow_run.headers["location"]
-    assert flow_run.ok
+    TEAMS_FLOW_LOCATION = approval_flow_for_teams_flow_run.headers["location"]
+    assert approval_flow_for_teams_flow_run.ok
 
-
-def test_trigger_approval_flow_for_mail(api_request_context: APIRequestContext) -> None:
-    now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")
     global APPROVAL_FLOW_TITLE_FOR_MAIL
-    APPROVAL_FLOW_TITLE_FOR_MAIL = f'test_approval@{now}'
-    data = {
+    APPROVAL_FLOW_TITLE_FOR_MAIL = f'test_approval@{dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
+    approval_flow_for_mail_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_MAIL,
         "tag": "pytest",
     }
-    flow_run = api_request_context.post(TEST_FLOW, data=data)
+    approval_flow_for_mail_flow_run = api_request_context.post(TEST_FLOW, data=approval_flow_for_mail_data)
     global MAIL_FLOW_LOCATION
-    MAIL_FLOW_LOCATION = flow_run.headers["location"]
-    assert flow_run.ok
+    MAIL_FLOW_LOCATION = approval_flow_for_mail_flow_run.headers["location"]
+    assert approval_flow_for_mail_flow_run.ok
 
 
 def test_approval_portal(page: Page):
