@@ -83,7 +83,7 @@ def test_approval_portal(page: Page):
     page.get_by_role("option", name="Approve").click()
     page.get_by_role("button", name="Confirm").click()
 
-    page.wait_for_timeout(3000)
+    page.wait_for_timeout(5000)
     page.screenshot(path="approval.png", full_page=True)
 
     locator = page.locator("'Respond: Approve'")
@@ -140,7 +140,7 @@ def test_approval_mail(page: Page):
     popup_page.get_by_role("button", name="Approve").click()
     popup_page.get_by_role("button", name="Submit").click()
 
-    popup_page.wait_for_timeout(3000)
+    popup_page.wait_for_timeout(5000)
     popup_page.screenshot(path="mail.png", full_page=True)
 
     locator = popup_page.locator("'Approved'")
