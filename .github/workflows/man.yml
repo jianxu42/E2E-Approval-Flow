@@ -36,6 +36,5 @@ jobs:
       with:
         name: screenshots
         path: |
-          ./*.png
           ./*.zip
         retention-days: 1
