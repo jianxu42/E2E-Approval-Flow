@@ -1,6 +1,5 @@
 import datetime as dt
 import os
-import re
 from typing import Generator
 
 import pytest
@@ -96,7 +95,6 @@ def test_approval_portal(page: Page):
 
     locator = page.locator("'Respond: Approve'")
     expect(locator).to_contain_text("Respond: Approve")
-    expect(page).to_have_url(re.compile(".*approvals.*"))
 
 
 def test_approval_teams(page: Page):
@@ -120,12 +118,11 @@ def test_approval_teams(page: Page):
     page.get_by_role("button", name="Approvals Toolbar").click()
 
     approval_tab_view.get_by_role("gridcell", name=APPROVAL_FLOW_TITLE_FOR_TEAMS).click()
-    page.wait_for_timeout(10000)
+    page.wait_for_timeout(8000)
     page.screenshot(path="teams.png", full_page=True)
 
     locator = approval_tab_view.locator("'Final status: Approved'")
     expect(locator).to_contain_text("Final status: Approved")
-    expect(page).to_have_url(re.compile(".*teams.*"))
 
 
 def test_approval_mail(page: Page):
@@ -148,7 +145,7 @@ def test_approval_mail(page: Page):
     popup_page.get_by_role("button", name="Approve").click()
     popup_page.get_by_role("button", name="Submit").click()
 
-    popup_page.wait_for_timeout(10000)
+    popup_page.wait_for_timeout(8000)
     popup_page.screenshot(path="mail.png", full_page=True)
 
     locator = popup_page.locator("'Approved'")
