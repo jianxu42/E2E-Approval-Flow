@@ -28,6 +28,6 @@ jobs:
         TEST_PWD: ${{secrets.TEST_PWD}}
         TEST_FLOW: ${{secrets.TEST_FLOW}}
         TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
-        TEST_APPROVAL_TEAMS: ${{secrects.TEST_APPROVAL_TEAMS}}
+        TEST_APPROVAL_TEAMS: ${{secrets.TEST_APPROVAL_TEAMS}}
       run: |
         pytest
