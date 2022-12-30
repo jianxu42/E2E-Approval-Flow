@@ -1,5 +1,6 @@
 import datetime as dt
 import os
+from datetime import datetime as dt_dt
 from typing import Generator
 
 import pytest
@@ -41,7 +42,7 @@ def api_request_context(
 
 def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global APPROVAL_FLOW_TITLE_FOR_PORTAL
-    APPROVAL_FLOW_TITLE_FOR_PORTAL = f'test_approval@{dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
+    APPROVAL_FLOW_TITLE_FOR_PORTAL = f'test_approval@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
     approval_flow_for_portal_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_PORTAL,
         "tag": "pytest",
@@ -52,7 +53,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     assert approval_flow_for_portal_flow_run.ok
 
     global APPROVAL_FLOW_TITLE_FOR_TEAMS
-    APPROVAL_FLOW_TITLE_FOR_TEAMS = f'test_approval@{dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
+    APPROVAL_FLOW_TITLE_FOR_TEAMS = f'test_approval@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
     approval_flow_for_teams_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_TEAMS,
         "tag": "pytest",
@@ -63,7 +64,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     assert approval_flow_for_teams_flow_run.ok
 
     global APPROVAL_FLOW_TITLE_FOR_MAIL
-    APPROVAL_FLOW_TITLE_FOR_MAIL = f'test_approval@{dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
+    APPROVAL_FLOW_TITLE_FOR_MAIL = f'test_approval@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
     approval_flow_for_mail_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_MAIL,
         "tag": "pytest",
