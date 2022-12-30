@@ -112,7 +112,7 @@ def test_approval_teams(page: Page):
     page.get_by_role("button", name="Approvals Toolbar").click()
 
     approval_tab_view.get_by_role("gridcell", name=APPROVAL_FLOW_TITLE_FOR_TEAMS).click()
-    page.wait_for_timeout(5000)
+    page.wait_for_timeout(8000)
     page.screenshot(path="teams.png", full_page=True)
 
     locator = approval_tab_view.locator("'Final status: Approved'")
@@ -140,7 +140,7 @@ def test_approval_mail(page: Page):
     popup_page.get_by_role("button", name="Approve").click()
     popup_page.get_by_role("button", name="Submit").click()
 
-    popup_page.wait_for_timeout(5000)
+    popup_page.wait_for_timeout(8000)
     popup_page.screenshot(path="mail.png", full_page=True)
 
     locator = popup_page.locator("'Approved'")
