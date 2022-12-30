@@ -31,6 +31,12 @@ def api_request_context(
         extra_http_headers=headers
     )
     yield request_context
+    portal_flow_run = request_context.get(PORTAL_FLOW_LOCATION)
+    teams_flow_run = request_context.get(TEAMS_FLOW_LOCATION)
+    mail_flow_run = request_context.get(MAIL_FLOW_LOCATION)
+    assert portal_flow_run.json()["outcome"] == "Approve"
+    assert teams_flow_run.json()["outcome"] == "Approve"
+    assert mail_flow_run.json()["outcome"] == "Approve"
     request_context.dispose()
 
 
@@ -154,12 +160,3 @@ def test_approval_mail(page: Page):
 
     locator = popup_page.locator("'Approved'")
     expect(locator).to_contain_text("Approved")
-
-
-def test_trigger_approval_flow_status(api_request_context: APIRequestContext) -> None:
-    portal_flow_run = api_request_context.get(PORTAL_FLOW_LOCATION)
-    teams_flow_run = api_request_context.get(TEAMS_FLOW_LOCATION)
-    mail_flow_run = api_request_context.get(MAIL_FLOW_LOCATION)
-    assert portal_flow_run.json()["outcome"] == "Approve"
-    assert teams_flow_run.json()["outcome"] == "Approve"
-    assert mail_flow_run.json()["outcome"] == "Approve"
