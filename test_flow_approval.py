@@ -157,6 +157,7 @@ def test_approval_mail(page: Page):
 
 
 def test_trigger_approval_flow_status(api_request_context: APIRequestContext) -> None:
+    assert PORTAL_FLOW_LOCATION == "https"
     portal_flow_run = api_request_context.get(PORTAL_FLOW_LOCATION)
     teams_flow_run = api_request_context.get(TEAMS_FLOW_LOCATION)
     mail_flow_run = api_request_context.get(MAIL_FLOW_LOCATION)
