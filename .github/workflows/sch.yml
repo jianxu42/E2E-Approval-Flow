@@ -28,7 +28,7 @@ jobs:
         TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
         TEST_APPROVAL_TEAMS: ${{secrets.TEST_APPROVAL_TEAMS}}
       run: |
-        pytest --numprocesses 2
+        pytest -n0
     - name: Upload screenshots
       if: always()
       uses: actions/upload-artifact@v3
