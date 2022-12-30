@@ -44,7 +44,7 @@ def test_trigger_approval_flow_for_portal(api_request_context: APIRequestContext
     }
     flow_run = api_request_context.post(TEST_FLOW, data=data)
     global PORTAL_FLOW_LOCATION
-    PORTAL_FLOW_LOCATION = flow_run.headers.get("Location")
+    PORTAL_FLOW_LOCATION = flow_run.headers["Location"]
     assert flow_run.ok
 
 
@@ -58,7 +58,7 @@ def test_trigger_approval_flow_for_teams(api_request_context: APIRequestContext)
     }
     flow_run = api_request_context.post(TEST_FLOW, data=data)
     global TEAMS_FLOW_LOCATION
-    TEAMS_FLOW_LOCATION = flow_run.headers.get("Location")
+    TEAMS_FLOW_LOCATION = flow_run.headers["Location"]
     assert flow_run.ok
 
 
@@ -72,7 +72,7 @@ def test_trigger_approval_flow_for_mail(api_request_context: APIRequestContext) 
     }
     flow_run = api_request_context.post(TEST_FLOW, data=data)
     global MAIL_FLOW_LOCATION
-    MAIL_FLOW_LOCATION = flow_run.headers.get("Location")
+    MAIL_FLOW_LOCATION = flow_run.headers["Location"]
     assert flow_run.ok
 
 
@@ -157,7 +157,6 @@ def test_approval_mail(page: Page):
 
 
 def test_trigger_approval_flow_status(api_request_context: APIRequestContext) -> None:
-    assert PORTAL_FLOW_LOCATION == "https"
     portal_flow_run = api_request_context.get(PORTAL_FLOW_LOCATION)
     teams_flow_run = api_request_context.get(TEAMS_FLOW_LOCATION)
     mail_flow_run = api_request_context.get(MAIL_FLOW_LOCATION)
