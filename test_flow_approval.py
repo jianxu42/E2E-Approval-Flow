@@ -115,7 +115,7 @@ def test_approval_teams(page: Page):
     page.wait_for_timeout(5000)
     page.screenshot(path="teams.png", full_page=True)
 
-    locator = page.locator("'Final status: Approved'")
+    locator = approval_tab_view.locator("'Final status: Approved'")
     expect(locator).to_contain_text("Final status: Approved")
     expect(page).to_have_url(re.compile(".*teams.*"))
 
