@@ -112,7 +112,7 @@ def test_approval_teams(page: Page):
     page.get_by_role("button", name="Approvals Toolbar").click()
 
     approval_tab_view.get_by_role("gridcell", name=APPROVAL_FLOW_TITLE_FOR_TEAMS).click()
-    page.wait_for_timeout(3000)
+    page.wait_for_timeout(5000)
     page.screenshot(path="teams.png", full_page=True)
 
     locator = page.locator("'Final status: Approved'")
