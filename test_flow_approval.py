@@ -1,9 +1,10 @@
 import datetime as dt
 import os
 import re
+from typing import Generator
 
 import pytest
-from playwright.sync_api import Page, expect, Playwright
+from playwright.sync_api import Page, expect, Playwright, APIRequestContext
 
 APPROVAL_FLOW_TITLE_FOR_PORTAL = ''
 APPROVAL_FLOW_TITLE_FOR_TEAMS = ''
@@ -19,7 +20,9 @@ TEST_APPROVAL_TEAMS = os.environ['TEST_APPROVAL_TEAMS']
 
 
 @pytest.fixture(scope="session")
-def test_trigger_approval_flow(playwright: Playwright):
+def api_request_context(
+        playwright: Playwright,
+) -> Generator[APIRequestContext, None, None]:
     headers = {
         "Accept": "application/json",
     }
@@ -27,13 +30,24 @@ def test_trigger_approval_flow(playwright: Playwright):
         base_url="https://make.powerautomate.com",
         extra_http_headers=headers
     )
+    yield request_context
+    portal_flow_run = request_context.get(PORTAL_FLOW_LOCATION)
+    teams_flow_run = request_context.get(TEAMS_FLOW_LOCATION)
+    mail_flow_run = request_context.get(MAIL_FLOW_LOCATION)
+    assert portal_flow_run.json()["outcome"] == "Approve"
+    assert teams_flow_run.json()["outcome"] == "Approve"
+    assert mail_flow_run.json()["outcome"] == "Approve"
+    request_context.dispose()
+
+
+def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global APPROVAL_FLOW_TITLE_FOR_PORTAL
     APPROVAL_FLOW_TITLE_FOR_PORTAL = f'test_approval@{dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
     approval_flow_for_portal_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_PORTAL,
         "tag": "pytest",
     }
-    approval_flow_for_portal_flow_run = request_context.post(TEST_FLOW, data=approval_flow_for_portal_data)
+    approval_flow_for_portal_flow_run = api_request_context.post(TEST_FLOW, data=approval_flow_for_portal_data)
     global PORTAL_FLOW_LOCATION
     PORTAL_FLOW_LOCATION = approval_flow_for_portal_flow_run.headers["location"]
     assert approval_flow_for_portal_flow_run.ok
@@ -44,7 +58,7 @@ def test_trigger_approval_flow(playwright: Playwright):
         "title": APPROVAL_FLOW_TITLE_FOR_TEAMS,
         "tag": "pytest",
     }
-    approval_flow_for_teams_flow_run = request_context.post(TEST_FLOW, data=approval_flow_for_teams_data)
+    approval_flow_for_teams_flow_run = api_request_context.post(TEST_FLOW, data=approval_flow_for_teams_data)
     global TEAMS_FLOW_LOCATION
     TEAMS_FLOW_LOCATION = approval_flow_for_teams_flow_run.headers["location"]
     assert approval_flow_for_teams_flow_run.ok
@@ -55,18 +69,10 @@ def test_trigger_approval_flow(playwright: Playwright):
         "title": APPROVAL_FLOW_TITLE_FOR_MAIL,
         "tag": "pytest",
     }
-    approval_flow_for_mail_flow_run = request_context.post(TEST_FLOW, data=approval_flow_for_mail_data)
+    approval_flow_for_mail_flow_run = api_request_context.post(TEST_FLOW, data=approval_flow_for_mail_data)
     global MAIL_FLOW_LOCATION
     MAIL_FLOW_LOCATION = approval_flow_for_mail_flow_run.headers["location"]
     assert approval_flow_for_mail_flow_run.ok
-    yield request_context
-    portal_flow_run = request_context.get(PORTAL_FLOW_LOCATION)
-    teams_flow_run = request_context.get(TEAMS_FLOW_LOCATION)
-    mail_flow_run = request_context.get(MAIL_FLOW_LOCATION)
-    assert portal_flow_run.json()["outcome"] == "Approve"
-    assert teams_flow_run.json()["outcome"] == "Approve"
-    assert mail_flow_run.json()["outcome"] == "Approve"
-    request_context.dispose()
 
 
 def test_approval_portal(page: Page):
