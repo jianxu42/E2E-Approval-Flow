@@ -6,9 +6,12 @@ from typing import Generator
 import pytest
 from playwright.sync_api import Page, expect, Playwright, APIRequestContext
 
-APPROVAL_FLOW_TITLE_FOR_PORTAL = ""
-APPROVAL_FLOW_TITLE_FOR_MAIL = ""
-APPROVAL_FLOW_TITLE_FOR_TEAMS = ""
+APPROVAL_FLOW_TITLE_FOR_PORTAL = ''
+APPROVAL_FLOW_TITLE_FOR_TEAMS = ''
+APPROVAL_FLOW_TITLE_FOR_MAIL = ''
+PORTAL_FLOW_LOCATION = ''
+TEAMS_FLOW_LOCATION = ''
+MAIL_FLOW_LOCATION = ''
 TEST_USER = os.environ['TEST_USER']
 TEST_PWD = os.environ['TEST_PWD']
 TEST_FLOW = os.environ['TEST_FLOW']
@@ -40,18 +43,8 @@ def test_trigger_approval_flow_for_portal(api_request_context: APIRequestContext
         "tag": "pytest",
     }
     flow_run = api_request_context.post(TEST_FLOW, data=data)
-    assert flow_run.ok
-
-
-def test_trigger_approval_flow_for_mail(api_request_context: APIRequestContext) -> None:
-    now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")
-    global APPROVAL_FLOW_TITLE_FOR_MAIL
-    APPROVAL_FLOW_TITLE_FOR_MAIL = f'test_approval@{now}'
-    data = {
-        "title": APPROVAL_FLOW_TITLE_FOR_MAIL,
-        "tag": "pytest",
-    }
-    flow_run = api_request_context.post(TEST_FLOW, data=data)
+    global PORTAL_FLOW_LOCATION
+    PORTAL_FLOW_LOCATION = flow_run.headers.get('Location')
     assert flow_run.ok
 
 
@@ -64,6 +57,22 @@ def test_trigger_approval_flow_for_teams(api_request_context: APIRequestContext)
         "tag": "pytest",
     }
     flow_run = api_request_context.post(TEST_FLOW, data=data)
+    global TEAMS_FLOW_LOCATION
+    TEAMS_FLOW_LOCATION = flow_run.headers.get('Location')
+    assert flow_run.ok
+
+
+def test_trigger_approval_flow_for_mail(api_request_context: APIRequestContext) -> None:
+    now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")
+    global APPROVAL_FLOW_TITLE_FOR_MAIL
+    APPROVAL_FLOW_TITLE_FOR_MAIL = f'test_approval@{now}'
+    data = {
+        "title": APPROVAL_FLOW_TITLE_FOR_MAIL,
+        "tag": "pytest",
+    }
+    flow_run = api_request_context.post(TEST_FLOW, data=data)
+    global MAIL_FLOW_LOCATION
+    MAIL_FLOW_LOCATION = flow_run.headers.get('Location')
     assert flow_run.ok
 
 
@@ -145,3 +154,10 @@ def test_approval_mail(page: Page):
 
     locator = popup_page.locator("'Approved'")
     expect(locator).to_contain_text("Approved")
+
+
+def test_trigger_approval_flow_status(api_request_context: APIRequestContext) -> None:
+    portal_flow_run = api_request_context.get(PORTAL_FLOW_LOCATION)
+    # teams_flow_run = api_request_context.get(TEAMS_FLOW_LOCATION)
+    # mail_flow_run = api_request_context.get(MAIL_FLOW_LOCATION)
+    print(portal_flow_run.json())
