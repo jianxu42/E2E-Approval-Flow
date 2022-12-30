@@ -86,7 +86,7 @@ def test_approval_portal(page: Page):
     page.wait_for_timeout(10000)
     page.screenshot(path="approval.png", full_page=True)
 
-    locator = page.locator('text = Respond: Approve')
+    locator = page.locator("'Respond: Approve'")
     expect(locator).to_contain_text("Respond: Approve")
     expect(page).to_have_url(re.compile(".*approvals.*"))
 
@@ -115,7 +115,7 @@ def test_approval_teams(page: Page):
     page.wait_for_timeout(10000)
     page.screenshot(path="teams.png", full_page=True)
 
-    locator = page.locator('text = Approved')
+    locator = page.locator("'Approved'")
     expect(locator).to_contain_text("Approved")
     expect(page).to_have_url(re.compile(".*teams.*"))
 
@@ -145,6 +145,6 @@ def test_approval_mail(page: Page):
     page.wait_for_timeout(10000)
     page.screenshot(path="mail.png", full_page=True)
 
-    locator = page.locator('text = Approved')
+    locator = page.locator("'Approved'")
     expect(locator).to_contain_text("Approved")
     expect(page).to_have_url(re.compile(".*mail.*"))
