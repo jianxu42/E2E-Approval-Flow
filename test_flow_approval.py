@@ -140,11 +140,8 @@ def test_approval_mail(page: Page):
     popup_page.get_by_role("button", name="Approve").click()
     popup_page.get_by_role("button", name="Submit").click()
 
-    page.goto("https://outlook.office.com/mail/")
-    page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
-    page.wait_for_timeout(10000)
-    page.screenshot(path="mail.png", full_page=True)
+    popup_page.wait_for_timeout(10000)
+    popup_page.screenshot(path="mail.png", full_page=True)
 
-    locator = page.locator("'Approved'")
+    locator = popup_page.locator("'Approved'")
     expect(locator).to_contain_text("Approved")
-    expect(page).to_have_url(re.compile(".*mail.*"))
