@@ -14,9 +14,9 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: "3.11"
+        cache: 'pip'
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
         pip install pytest-playwright
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         playwright install
@@ -44,9 +44,9 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
+          cache: 'pip'
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install pytest-playwright
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           playwright install
@@ -74,9 +74,9 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
+          cache: 'pip'
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install pytest-playwright
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           playwright install
