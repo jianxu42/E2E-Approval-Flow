@@ -86,6 +86,7 @@ jobs:
           TEST_USER: ${{ secrets.TEST_USER }}
           TEST_PWD: ${{secrets.TEST_PWD}}
           TEST_FLOW: ${{secrets.TEST_FLOW}}
+          TEST_APPROVAL_MAIL: ${{secrets.TEST_APPROVAL_MAIL}}
         run: |
           pytest test_flow_approval_mail.py
       - name: Upload trace
