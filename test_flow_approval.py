@@ -42,7 +42,7 @@ def api_request_context(
 
 def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global APPROVAL_FLOW_TITLE_FOR_PORTAL
-    APPROVAL_FLOW_TITLE_FOR_PORTAL = f'test_approval@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
+    APPROVAL_FLOW_TITLE_FOR_PORTAL = f'test_approval_portal@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
     approval_flow_for_portal_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_PORTAL,
         "tag": "pytest",
@@ -53,7 +53,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     assert approval_flow_for_portal_flow_run.ok
 
     global APPROVAL_FLOW_TITLE_FOR_TEAMS
-    APPROVAL_FLOW_TITLE_FOR_TEAMS = f'test_approval@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
+    APPROVAL_FLOW_TITLE_FOR_TEAMS = f'test_approval_teams@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
     approval_flow_for_teams_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_TEAMS,
         "tag": "pytest",
@@ -64,7 +64,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     assert approval_flow_for_teams_flow_run.ok
 
     global APPROVAL_FLOW_TITLE_FOR_MAIL
-    APPROVAL_FLOW_TITLE_FOR_MAIL = f'test_approval@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
+    APPROVAL_FLOW_TITLE_FOR_MAIL = f'test_approval_mail@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
     approval_flow_for_mail_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_MAIL,
         "tag": "pytest",
@@ -97,6 +97,8 @@ def test_approval_portal(context: BrowserContext):
     expect(locator).to_contain_text("Respond: Approve")
 
     context.tracing.stop(path="test_approval_portal_trace.zip")
+
+    page.wait_for_timeout(1000)
 
 
 def test_approval_teams(context: BrowserContext):
