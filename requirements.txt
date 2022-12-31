@@ -1,1 +1,1 @@
-pytest-playwright
+pytest-playwright>=0.3.0
