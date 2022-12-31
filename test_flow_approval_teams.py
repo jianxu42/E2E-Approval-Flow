@@ -47,7 +47,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 def test_approval_teams(context: BrowserContext):
     context.tracing.start(screenshots=True, snapshots=True, sources=True)
     page = context.new_page()
-    page.goto("https://teams.microsoft.com/")
+    page.goto(TEST_APPROVAL_TEAMS)
 
     page.get_by_placeholder("Email, phone, or Skype").click()
     page.get_by_placeholder("Email, phone, or Skype").fill(TEST_USER)
@@ -57,9 +57,7 @@ def test_approval_teams(context: BrowserContext):
     page.get_by_role("button", name="Sign in").click()
     page.get_by_role("button", name="Yes").click()
 
-    page.goto(TEST_APPROVAL_TEAMS)
     approval_tab_view = page.frame_locator("internal:attr=[title=\"Approvals Tab View\"i]")
-    approval_tab_view.get_by_role("button", name="Got it").click()
     approval_tab_view.get_by_role("menuitem", name="Dynamics FTE GCR (default)").click()
     approval_tab_view.get_by_role("menuitemcheckbox", name="JianTestSolution").click()
     approval_tab_view.get_by_role("gridcell", name=APPROVAL_FLOW_TITLE_FOR_TEAMS).click()
