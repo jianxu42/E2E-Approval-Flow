@@ -5,6 +5,8 @@ name: Run scheduled
 on:
   schedule:
     - cron:  '*/10 * * * *'
+permissions:
+  contents: read
 jobs:
   portal:
     runs-on: ubuntu-latest
