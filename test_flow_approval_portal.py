@@ -62,6 +62,7 @@ def test_approval_portal(context: BrowserContext):
     page.get_by_role("option", name="Approve").click()
     page.get_by_role("button", name="Confirm").click()
 
+    page.wait_for_timeout(3000)
     locator = page.locator("'Respond: Approve'")
     expect(locator).to_contain_text("Respond: Approve")
 
