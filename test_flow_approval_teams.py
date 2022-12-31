@@ -45,7 +45,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 
 
 def test_approval_teams(context: BrowserContext):
-    context.tracing.start(screenshots=True, snapshots=True, sources=False)
+    context.tracing.start(screenshots=False, snapshots=True, sources=False)
     page = context.new_page()
     page.goto("https://teams.microsoft.com/")
 
