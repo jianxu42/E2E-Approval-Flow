@@ -11,6 +11,7 @@ MAIL_FLOW_LOCATION = ''
 TEST_USER = os.environ['TEST_USER']
 TEST_PWD = os.environ['TEST_PWD']
 TEST_FLOW = os.environ['TEST_FLOW']
+TEST_APPROVAL_MAIL = os.environ['TEST_APPROVAL_MAIL']
 
 
 @pytest.fixture(scope="session")
@@ -46,7 +47,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 def test_approval_mail(context: BrowserContext):
     context.tracing.start(screenshots=True, snapshots=True, sources=True)
     page = context.new_page()
-    page.goto("https://outlook.office.com/mail/")
+    page.goto(TEST_APPROVAL_MAIL)
 
     page.get_by_placeholder("Email, phone, or Skype").click()
     page.get_by_placeholder("Email, phone, or Skype").fill(TEST_USER)
