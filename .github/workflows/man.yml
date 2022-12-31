@@ -18,8 +18,6 @@ jobs:
         cache: 'pip'
     - name: Install dependencies
       run: |
-        pip install pytest-playwright
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         playwright install
     - name: Test with pytest
       env:
@@ -48,8 +46,6 @@ jobs:
           cache: 'pip'
       - name: Install dependencies
         run: |
-          pip install pytest-playwright
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           playwright install
       - name: Test with pytest
         env:
@@ -78,8 +74,6 @@ jobs:
           cache: 'pip'
       - name: Install dependencies
         run: |
-          pip install pytest-playwright
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           playwright install
       - name: Test with pytest
         env:
