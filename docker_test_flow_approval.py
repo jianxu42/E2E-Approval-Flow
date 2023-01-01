@@ -43,10 +43,10 @@ def api_request_context(
 
 def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global APPROVAL_FLOW_TITLE_FOR_PORTAL
-    APPROVAL_FLOW_TITLE_FOR_PORTAL = f'test_approval_portal@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
+    APPROVAL_FLOW_TITLE_FOR_PORTAL = f'k8s-test_approval_portal@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
     approval_flow_for_portal_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_PORTAL,
-        "tag": "pytest",
+        "tag": "k8s",
     }
     approval_flow_for_portal_flow_run = api_request_context.post(TEST_FLOW, data=approval_flow_for_portal_data)
     global PORTAL_FLOW_LOCATION
@@ -54,10 +54,10 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     assert approval_flow_for_portal_flow_run.ok
 
     global APPROVAL_FLOW_TITLE_FOR_MAIL
-    APPROVAL_FLOW_TITLE_FOR_MAIL = f'test_approval_mail@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
+    APPROVAL_FLOW_TITLE_FOR_MAIL = f'k8s-test_approval_mail@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
     approval_flow_for_mail_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_MAIL,
-        "tag": "pytest",
+        "tag": "k8s",
     }
     approval_flow_for_mail_flow_run = api_request_context.post(TEST_FLOW, data=approval_flow_for_mail_data)
     global MAIL_FLOW_LOCATION
@@ -65,10 +65,10 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     assert approval_flow_for_mail_flow_run.ok
 
     global APPROVAL_FLOW_TITLE_FOR_TEAMS
-    APPROVAL_FLOW_TITLE_FOR_TEAMS = f'test_approval_teams@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
+    APPROVAL_FLOW_TITLE_FOR_TEAMS = f'k8s-test_approval_teams@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
     approval_flow_for_teams_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_TEAMS,
-        "tag": "pytest",
+        "tag": "k8s",
     }
     approval_flow_for_teams_flow_run = api_request_context.post(TEST_FLOW, data=approval_flow_for_teams_data)
     global TEAMS_FLOW_LOCATION

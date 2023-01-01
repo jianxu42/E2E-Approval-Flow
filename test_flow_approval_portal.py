@@ -33,10 +33,10 @@ def api_request_context(
 
 def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global APPROVAL_FLOW_TITLE_FOR_PORTAL
-    APPROVAL_FLOW_TITLE_FOR_PORTAL = f'test_approval_portal@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
+    APPROVAL_FLOW_TITLE_FOR_PORTAL = f'github-test_approval_portal@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
     approval_flow_for_portal_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_PORTAL,
-        "tag": "pytest",
+        "tag": "github",
     }
     approval_flow_for_portal_flow_run = api_request_context.post(TEST_FLOW, data=approval_flow_for_portal_data)
     global PORTAL_FLOW_LOCATION
