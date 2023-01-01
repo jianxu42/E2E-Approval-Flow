@@ -57,12 +57,17 @@ def test_approval_mail(context: BrowserContext):
     page.get_by_role("button", name="Sign in").click()
     page.get_by_role("button", name="Yes").click()
 
-    page.wait_for_timeout(5000)
     page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
-    page.get_by_role("button", name="Approve").click()
-    page.get_by_role("button", name="Submit").click()
+    page.get_by_role("menuitem", name="More mail actions").click()
+    page.get_by_role("menuitem", name="View").filter(has_text="View").click()
+    with page.expect_popup() as page_info:
+        page.get_by_role("menuitem", name="Open in new window").click()
+    popup_page = page_info.value
+    page.wait_for_timeout(5000)
+    popup_page.get_by_role("button", name="Approve").click()
+    popup_page.get_by_role("button", name="Submit").click()
 
-    locator = page.locator("'Approved'")
+    locator = popup_page.locator("'Approved'")
     expect(locator).to_contain_text("Approved")
 
     context.tracing.stop(path="test_approval_mail.zip")
