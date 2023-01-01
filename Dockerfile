@@ -9,4 +9,4 @@ RUN playwright install
 
 COPY . .
 
-CMD [ "pytest"]
+CMD [ "pytest", "docker_test_flow_approval.py"]
