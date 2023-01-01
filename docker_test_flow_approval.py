@@ -4,7 +4,7 @@ from datetime import datetime as dt_dt
 from typing import Generator
 
 import pytest
-from playwright.sync_api import Playwright, APIRequestContext
+from playwright.sync_api import Playwright, APIRequestContext, BrowserContext, expect
 
 APPROVAL_FLOW_TITLE_FOR_PORTAL = ''
 PORTAL_FLOW_LOCATION = ''
@@ -44,26 +44,18 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     assert approval_flow_for_portal_flow_run.ok
 
 
-# def test_approval_portal(context: BrowserContext):
-#     context.tracing.start(screenshots=True, snapshots=True, sources=True)
-#     page = context.new_page()
-#     page.goto(TEST_APPROVAL_PORTAL)
-#
-#     page.get_by_placeholder("Email, phone, or Skype").click()
-#     page.get_by_placeholder("Email, phone, or Skype").fill(TEST_USER)
-#     page.get_by_role("button", name="Next").click()
-#     page.get_by_placeholder("Password").click()
-#     page.get_by_placeholder("Password").fill(TEST_PWD)
-#     page.get_by_role("button", name="Sign in").click()
-#     page.get_by_role("button", name="Yes").click()
-#
-#
-#     page.wait_for_timeout(3000)
-#     locator = page.locator("'Respond: Approve'")
-#     expect(locator).to_contain_text("Respond: Approve")
-#
-#     context.tracing.stop(path="test_approval_portal_trace.zip")
+def test_approval_portal(context: BrowserContext):
+    page = context.new_page()
+    page.goto(TEST_APPROVAL_PORTAL)
 
+    page.get_by_placeholder("Email, phone, or Skype").click()
+    page.get_by_placeholder("Email, phone, or Skype").fill(TEST_USER)
+    page.get_by_role("button", name="Next").click()
+    page.get_by_placeholder("Password").click()
+    page.get_by_placeholder("Password").fill(TEST_PWD)
+    page.get_by_role("button", name="Sign in").click()
+    page.get_by_role("button", name="Yes").click()
 
-def test_001():
-    assert 1 == 1
+    page.wait_for_timeout(3000)
+    locator = page.locator("'Respond: Approve'")
+    expect(locator).to_contain_text("Respond: Approve")
