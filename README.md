@@ -5,13 +5,13 @@ This is for verifying the approval flow from end to end.
 Flow diagram
 ```mermaid
 graph LR
-    GithubAction[Playwright]--trigger_flow-->FlowEndpoint;
-    GithubAction[Playwright]--approve-->FlowPortalApproval;
-    GithubAction[Playwright]--trigger_flow-->FlowEndpoint;
-    GithubAction[Playwright]--approve-->TeamsApproval;
-    GithubAction[Playwright]--trigger_flow-->FlowEndpoint;
-    GithubAction[Playwright]--approve-->MailApproval;
-    GithubAction[Playwright]--check_status-->FlowEndpoint;
-    GithubAction[Playwright]--check_status-->FlowEndpoint;
-    GithubAction[Playwright]--check_status-->FlowEndpoint;
+    Playwright[GithubAction]--trigger-->ApprovalFlowEndpoint;
+    Playwright[GithubAction]--trigger-->ApprovalFlowEndpoint;
+    Playwright[GithubAction]--trigger-->ApprovalFlowEndpoint;
+    Playwright[GithubAction]--approve-->FlowPortalApproval;
+    Playwright[GithubAction]--approve-->TeamsApproval;
+    Playwright[GithubAction]--approve-->MailApproval;
+    Playwright[GithubAction]--check_status-->ApprovalFlowEndpoint;
+    Playwright[GithubAction]--check_status-->ApprovalFlowEndpoint;
+    Playwright[GithubAction]--check_status-->ApprovalFlowEndpoint;
 ```
