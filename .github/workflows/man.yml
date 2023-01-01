@@ -22,7 +22,7 @@ jobs:
         playwright install
     - name: Test with pytest
       env:
-        TEST_USER: ${{ secrets.TEST_USER }}
+        TEST_USER: ${{secrets.TEST_USER}}
         TEST_PWD: ${{secrets.TEST_PWD}}
         TEST_FLOW: ${{secrets.TEST_FLOW}}
         TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
@@ -52,7 +52,7 @@ jobs:
           playwright install
       - name: Test with pytest
         env:
-          TEST_USER: ${{ secrets.TEST_USER }}
+          TEST_USER: ${{secrets.TEST_USER}}
           TEST_PWD: ${{secrets.TEST_PWD}}
           TEST_FLOW: ${{secrets.TEST_FLOW}}
           TEST_APPROVAL_TEAMS: ${{secrets.TEST_APPROVAL_TEAMS}}
@@ -82,7 +82,7 @@ jobs:
           playwright install
       - name: Test with pytest
         env:
-          TEST_USER: ${{ secrets.TEST_USER }}
+          TEST_USER: ${{secrets.TEST_USER}}
           TEST_PWD: ${{secrets.TEST_PWD}}
           TEST_FLOW: ${{secrets.TEST_FLOW}}
           TEST_APPROVAL_MAIL: ${{secrets.TEST_APPROVAL_MAIL}}
