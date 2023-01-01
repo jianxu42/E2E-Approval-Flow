@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM ubuntu:latest
+FROM python:3.11.1-slim
 
 RUN apt-get update && apt-get install -y \
     python3 \
