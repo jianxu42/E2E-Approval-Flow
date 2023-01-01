@@ -13,7 +13,8 @@ jobs:
       env:
         DOCKERHUB_USER: ${{secrets.DOCKERHUB_USER}}
         DOCKERHUB_PWD: ${{secrets.DOCKERHUB_PWD}}
+        DOCKERHUB_REPO: ${{secrets.DOCKERHUB_REPO}}
       run: |
         echo $DOCKERHUB_PWD | docker login -u $DOCKERHUB_USER --password-stdin
-        docker image tag e2e_approval_flow:latest fgsoap/e2e_approval_flow:latest
-        docker image push fgsoap/e2e_approval_flow:latest
+        docker image tag e2e_approval_flow:latest $DOCKERHUB_REPO
+        docker image push $DOCKERHUB_REPO
