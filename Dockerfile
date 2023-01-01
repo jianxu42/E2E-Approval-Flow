@@ -10,6 +10,7 @@ WORKDIR /app
 
 RUN pip3 install pytest-playwright
 RUN playwright install
+RUN playwright install-deps
 
 COPY . .
 
