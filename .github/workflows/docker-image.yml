@@ -15,4 +15,5 @@ jobs:
         DOCKERHUB_PWD: ${{secrets.DOCKERHUB_PWD}}
       run: |
         echo $DOCKERHUB_PWD | docker login -u $DOCKERHUB_USER --password-stdin
-        docker push fgsoap/e2e_approval_flow:latest
+        docker image tag e2e_approval_flow:latest fgsoap/e2e_approval_flow:latest
+        docker image push fgsoap/e2e_approval_flow:latest
