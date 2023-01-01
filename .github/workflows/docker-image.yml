@@ -8,4 +8,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag e2e_approval_flow:$(date +%s)
+      run: docker build . --file Dockerfile --tag e2e_approval_flow:latest
+    - name: Push image to Docker Hub
+      run: |
+        docker login -u ${{secrets.DOCKERHUB_USER}} ${{secrets.DOCKERHUB_PWD}}
+        docker push fgsoap/e2e_approval_flow:latest
