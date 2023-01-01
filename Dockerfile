@@ -4,7 +4,7 @@ FROM ubuntu:latest
 
 WORKDIR /app
 
-RUN pip3 install pytest-playwright
+RUN pip install pytest-playwright
 RUN playwright install
 
 COPY . .
