@@ -10,6 +10,9 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag e2e_approval_flow:latest
     - name: Push image to Docker Hub
+      env:
+        DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
+        DOCKERHUB_PWD: ${{secrets.DOCKERHUB_PWD}}
       run: |
-        winpty docker login -u ${{secrets.DOCKERHUB_USER}} ${{secrets.DOCKERHUB_PWD}}
+        docker login -u $DOCKERHUB_USER $DOCKERHUB_PWD
         docker push fgsoap/e2e_approval_flow:latest
