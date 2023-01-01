@@ -14,5 +14,5 @@ jobs:
         DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
         DOCKERHUB_PWD: ${{secrets.DOCKERHUB_PWD}}
       run: |
-        docker login -u $DOCKERHUB_USER $DOCKERHUB_PWD
+        echo $DOCKERHUB_PWD | docker login -u $DOCKERHUB_USER --password-stdin
         docker push fgsoap/e2e_approval_flow:latest
