@@ -10,4 +10,4 @@ RUN playwright install-deps
 
 COPY . .
 
-CMD [ "pytest", "docker_test_flow_approval.py"]
+CMD [ "pytest", "docker_test_flow_approval.py", "--log-format='%(asctime)s %(levelname)s %(message)s'", "--log-date-format='%Y-%m-%d %H:%M:%S'"]
