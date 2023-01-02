@@ -1,4 +1,5 @@
 name: Docker Image CI
+run-name: Updated at ${{github.event.repository.updated_at}} by @${{github.actor}}
 on:
   push:
     branches: [ "main" ]
