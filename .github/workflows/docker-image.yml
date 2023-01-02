@@ -5,16 +5,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag e2e_approval_flow:latest
-    - name: Push image to Docker Hub
-      env:
-        DOCKERHUB_USER: ${{secrets.DOCKERHUB_USER}}
-        DOCKERHUB_PWD: ${{secrets.DOCKERHUB_PWD}}
-        DOCKERHUB_REPO: ${{secrets.DOCKERHUB_REPO}}
-      run: |
-        echo $DOCKERHUB_PWD | docker login -u $DOCKERHUB_USER --password-stdin
-        docker image tag e2e_approval_flow:latest $DOCKERHUB_REPO
-        docker image push $DOCKERHUB_REPO
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Build and push image to Docker Hub
+        env:
+          DOCKERHUB_USER: ${{secrets.DOCKERHUB_USER}}
+          DOCKERHUB_PWD: ${{secrets.DOCKERHUB_PWD}}
+          DOCKERHUB_REPO: ${{secrets.DOCKERHUB_REPO}}
+        run: |
+          docker build . --file Dockerfile --tag e2e_approval_flow:latest
+          echo $DOCKERHUB_PWD | docker login -u $DOCKERHUB_USER --password-stdin
+          docker image tag e2e_approval_flow:latest $DOCKERHUB_REPO
+          docker image push $DOCKERHUB_REPO
