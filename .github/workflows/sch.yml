@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: trace_portal
-          path: ./*.png
+          path: ./portal.png
           if-no-files-found: ignore
           retention-days: 1
   teams:
