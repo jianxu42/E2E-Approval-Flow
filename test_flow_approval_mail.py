@@ -1,10 +1,11 @@
 import datetime as dt
+import logging
 import os
 from datetime import datetime as dt_dt
 from typing import Generator
 
 import pytest
-from playwright.sync_api import expect, Playwright, APIRequestContext, BrowserContext
+from playwright.sync_api import expect, Playwright, APIRequestContext, BrowserContext, TimeoutError
 
 APPROVAL_FLOW_TITLE_FOR_MAIL = ''
 MAIL_FLOW_LOCATION = ''
@@ -45,30 +46,35 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 
 
 def test_approval_mail(context: BrowserContext):
-    context.tracing.start(screenshots=True, snapshots=True, sources=True)
-    page = context.new_page()
-    page.goto(TEST_APPROVAL_MAIL)
+    try:
+        context.tracing.start(screenshots=True, snapshots=True, sources=True)
+        page = context.new_page()
+        page.goto(TEST_APPROVAL_MAIL)
 
-    page.get_by_placeholder("Email, phone, or Skype").click()
-    page.get_by_placeholder("Email, phone, or Skype").fill(TEST_USER)
-    page.get_by_role("button", name="Next").click()
-    page.get_by_placeholder("Password").click()
-    page.get_by_placeholder("Password").fill(TEST_PWD)
-    page.get_by_role("button", name="Sign in").click()
-    page.get_by_role("button", name="Yes").click()
+        page.get_by_placeholder("Email, phone, or Skype").click()
+        page.get_by_placeholder("Email, phone, or Skype").fill(TEST_USER)
+        page.get_by_role("button", name="Next").click()
+        page.get_by_placeholder("Password").click()
+        page.get_by_placeholder("Password").fill(TEST_PWD)
+        page.get_by_role("button", name="Sign in").click()
+        page.get_by_role("button", name="Yes").click()
 
-    page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
-    page.get_by_role("menuitem", name="More mail actions").click()
-    page.get_by_role("menuitem", name="View").filter(has_text="View").click()
-    with page.expect_popup() as page_info:
-        page.get_by_role("menuitem", name="Open in new window").click()
-    popup_page = page_info.value
-    page.wait_for_timeout(10000)
-    popup_page.get_by_role("button", name="Approve").click()
-    popup_page.get_by_role("button", name="Submit").click()
+        page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
+        page.get_by_role("menuitem", name="More mail actions").click()
+        page.get_by_role("menuitem", name="View").filter(has_text="View").click()
+        with page.expect_popup() as page_info:
+            page.get_by_role("menuitem", name="Open in new window").click()
+        popup_page = page_info.value
+        page.wait_for_timeout(10000)
+        popup_page.get_by_role("button", name="Approve").click()
+        popup_page.get_by_role("button", name="Submit").click()
 
-    page.wait_for_timeout(10000)
-    locator = popup_page.locator("'Approved'")
-    expect(locator).to_contain_text("Approved")
+        page.wait_for_timeout(10000)
+        locator = popup_page.locator("'Approved'")
+        expect(locator).to_contain_text("Approved")
 
-    context.tracing.stop(path="test_approval_mail.zip")
+        context.tracing.stop(path="test_approval_mail.zip")
+    except TimeoutError as e:
+        context.tracing.stop(path="test_approval_mail.zip")
+        logging.error(e)
+        exit(1)
