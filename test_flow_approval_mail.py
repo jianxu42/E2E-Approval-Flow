@@ -47,7 +47,6 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 
 def test_approval_mail(context: BrowserContext):
     try:
-        context.tracing.start(screenshots=True, snapshots=False, sources=False)
         page = context.new_page()
         page.goto(TEST_APPROVAL_MAIL)
 
@@ -73,8 +72,6 @@ def test_approval_mail(context: BrowserContext):
         locator = popup_page.locator("'Approved'")
         expect(locator).to_contain_text("Approved")
 
-        context.tracing.stop(path="test_approval_mail.zip")
     except TimeoutError as e:
-        context.tracing.stop(path="test_approval_mail.zip")
         logging.error(e)
         exit(1)

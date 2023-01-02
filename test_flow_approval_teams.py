@@ -47,7 +47,6 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 
 def test_approval_teams(context: BrowserContext):
     try:
-        context.tracing.start(screenshots=True, snapshots=False, sources=False)
         page = context.new_page()
         page.goto(TEST_APPROVAL_TEAMS)
 
@@ -73,8 +72,6 @@ def test_approval_teams(context: BrowserContext):
         locator = approval_tab_view.locator("'Final status: Approved'")
         expect(locator).to_contain_text("Final status: Approved")
 
-        context.tracing.stop(path="test_approval_teams.zip")
     except TimeoutError as e:
-        context.tracing.stop(path="test_approval_teams.zip")
         logging.error(e)
         exit(1)

@@ -47,7 +47,6 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 
 def test_approval_portal(context: BrowserContext):
     try:
-        context.tracing.start(screenshots=True, snapshots=False, sources=False)
         page = context.new_page()
         page.goto(TEST_APPROVAL_PORTAL)
 
@@ -68,8 +67,6 @@ def test_approval_portal(context: BrowserContext):
         locator = page.locator("'Respond: Approve'")
         expect(locator).to_contain_text("Respond: Approve")
 
-        context.tracing.stop(path="test_approval_portal_trace.zip")
     except TimeoutError as e:
-        context.tracing.stop(path="test_approval_portal_trace.zip")
         logging.error(e)
         exit(1)
