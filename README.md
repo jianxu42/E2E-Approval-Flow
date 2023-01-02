@@ -11,3 +11,6 @@ graph LR
     Playwright[GithubAction/Kubernetes]--S2:approve-->MailApproval;
     Playwright[GithubAction/Kubernetes]--S3:check_status-->ApprovalFlowEndpoint;
 ```
+
+Approval Flow
+![Alt text](approval_flow.png)
