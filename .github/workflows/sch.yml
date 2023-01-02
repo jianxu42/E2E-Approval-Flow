@@ -32,6 +32,14 @@ jobs:
           TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
         run: |
           pytest test_flow_approval_portal.py
+      - name: Upload trace
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: trace_portal
+          path: ./*.png
+          if-no-files-found: ignore
+          retention-days: 1
   teams:
     runs-on: ubuntu-latest
     steps:
@@ -54,6 +62,14 @@ jobs:
           TEST_APPROVAL_TEAMS: ${{secrets.TEST_APPROVAL_TEAMS}}
         run: |
           pytest test_flow_approval_teams.py
+      - name: Upload trace
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: trace_teams
+          path: ./*.png
+          if-no-files-found: ignore
+          retention-days: 1
   mail:
     runs-on: ubuntu-latest
     steps:
@@ -76,3 +92,11 @@ jobs:
           TEST_APPROVAL_MAIL: ${{secrets.TEST_APPROVAL_MAIL}}
         run: |
           pytest test_flow_approval_mail.py
+      - name: Upload trace
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: trace_mail
+          path: ./*.png
+          if-no-files-found: ignore
+          retention-days: 1

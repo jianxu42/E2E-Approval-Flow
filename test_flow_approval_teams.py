@@ -46,8 +46,8 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 
 
 def test_approval_teams(context: BrowserContext):
+    page = context.new_page()
     try:
-        page = context.new_page()
         page.goto(TEST_APPROVAL_TEAMS)
 
         page.get_by_placeholder("Email, phone, or Skype").click()
@@ -73,5 +73,6 @@ def test_approval_teams(context: BrowserContext):
         expect(locator).to_contain_text("Final status: Approved")
 
     except TimeoutError as e:
+        page.screenshot(path="teams.png")
         logging.error(e)
         exit(1)
