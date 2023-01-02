@@ -47,7 +47,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 def test_approval_portal(context: BrowserContext):
     context.tracing.start(screenshots=True, snapshots=True, sources=True)
     page = context.new_page()
-    page.goto(TEST_APPROVAL_PORTAL)
+    page.goto(TEST_APPROVAL_PORTAL, timeout=0)
 
     page.get_by_placeholder("Email, phone, or Skype").click()
     page.get_by_placeholder("Email, phone, or Skype").fill(TEST_USER)
@@ -57,12 +57,11 @@ def test_approval_portal(context: BrowserContext):
     page.get_by_role("button", name="Sign in").click()
     page.get_by_role("button", name="Yes").click()
 
-    page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").click()
-    page.get_by_text("Select an option").click()
-    page.get_by_role("option", name="Approve").click()
-    page.get_by_role("button", name="Confirm").click()
+    page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").click(timeout=0)
+    page.get_by_text("Select an option").click(timeout=0)
+    page.get_by_role("option", name="Approve").click(timeout=0)
+    page.get_by_role("button", name="Confirm").click(timeout=0)
 
-    page.wait_for_timeout(3000)
     locator = page.locator("'Respond: Approve'")
     expect(locator).to_contain_text("Respond: Approve")
 
