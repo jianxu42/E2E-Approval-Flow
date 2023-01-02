@@ -32,13 +32,6 @@ jobs:
           TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
         run: |
           pytest test_flow_approval_portal.py
-      - name: Upload trace
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: trace_portal
-          path: ./*.zip
-          retention-days: 1
   teams:
     runs-on: ubuntu-latest
     steps:
@@ -61,13 +54,6 @@ jobs:
           TEST_APPROVAL_TEAMS: ${{secrets.TEST_APPROVAL_TEAMS}}
         run: |
           pytest test_flow_approval_teams.py
-      - name: Upload trace
-        if: always()
-        uses: actions/upload-artifact@v3
-        with:
-          name: trace_teams
-          path: ./*.zip
-          retention-days: 1
   mail:
     runs-on: ubuntu-latest
     steps:
