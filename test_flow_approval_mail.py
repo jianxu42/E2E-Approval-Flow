@@ -47,7 +47,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 
 def test_approval_mail(context: BrowserContext):
     try:
-        context.tracing.start(screenshots=True, snapshots=True, sources=True)
+        context.tracing.start(screenshots=True, snapshots=False, sources=False)
         page = context.new_page()
         page.goto(TEST_APPROVAL_MAIL)
 
