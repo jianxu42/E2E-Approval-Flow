@@ -67,7 +67,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: trace_teams
-          path: ./*.png
+          path: ./teams.png
           if-no-files-found: ignore
           retention-days: 1
   mail:
@@ -97,6 +97,8 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: trace_mail
-          path: ./*.png
+          path: |
+            ./mail.png
+            ./popup_mail.png
           if-no-files-found: ignore
           retention-days: 1

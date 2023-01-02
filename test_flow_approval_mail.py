@@ -13,6 +13,7 @@ TEST_USER = os.environ['TEST_USER']
 TEST_PWD = os.environ['TEST_PWD']
 TEST_FLOW = os.environ['TEST_FLOW']
 TEST_APPROVAL_MAIL = os.environ['TEST_APPROVAL_MAIL']
+mail_popup_page = None
 
 
 @pytest.fixture(scope="session")
@@ -46,6 +47,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 
 
 def test_approval_mail(context: BrowserContext):
+    global mail_popup_page
     page = context.new_page()
     try:
         page.goto(TEST_APPROVAL_MAIL)
@@ -63,16 +65,17 @@ def test_approval_mail(context: BrowserContext):
         page.get_by_role("menuitem", name="View").filter(has_text="View").click()
         with page.expect_popup() as page_info:
             page.get_by_role("menuitem", name="Open in new window").click()
-        popup_page = page_info.value
-        popup_page.wait_for_timeout(10000)
-        popup_page.get_by_role("button", name="Approve").click()
-        popup_page.get_by_role("button", name="Submit").click()
+        mail_popup_page = page_info.value
+        mail_popup_page.wait_for_timeout(10000)
+        mail_popup_page.get_by_role("button", name="Approve").click()
+        mail_popup_page.get_by_role("button", name="Submit").click()
 
-        popup_page.wait_for_timeout(10000)
-        locator = popup_page.locator("'Approved'")
+        mail_popup_page.wait_for_timeout(10000)
+        locator = mail_popup_page.locator("'Approved'")
         expect(locator).to_contain_text("Approved")
 
     except TimeoutError as e:
         page.screenshot(path="mail.png")
+        mail_popup_page.screenshot(path="popup_mail.png")
         logging.error(e)
         exit(1)
