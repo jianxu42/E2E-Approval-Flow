@@ -99,7 +99,6 @@ def test_approval_portal(context: BrowserContext):
 
 
 def test_approval_mail(context: BrowserContext):
-    context.tracing.start(screenshots=True, snapshots=True, sources=True)
     page = context.new_page()
     page.goto(TEST_APPROVAL_MAIL)
 
@@ -125,11 +124,8 @@ def test_approval_mail(context: BrowserContext):
     locator = popup_page.locator("'Approved'")
     expect(locator).to_contain_text("Approved")
 
-    context.tracing.stop(path="test_approval_mail.zip")
-
 
 def test_approval_teams(context: BrowserContext):
-    context.tracing.start(screenshots=True, snapshots=True, sources=True)
     page = context.new_page()
     page.goto(TEST_APPROVAL_TEAMS)
 
@@ -154,5 +150,3 @@ def test_approval_teams(context: BrowserContext):
     approval_tab_view.get_by_role("gridcell", name=APPROVAL_FLOW_TITLE_FOR_TEAMS).click()
     locator = approval_tab_view.locator("'Final status: Approved'")
     expect(locator).to_contain_text("Final status: Approved")
-
-    context.tracing.stop(path="test_approval_teams.zip")
