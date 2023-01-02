@@ -8,6 +8,6 @@ RUN pip3 install pytest-playwright &&\
     playwright install &&\
     playwright install-deps
 
-COPY . .
+COPY docker_test_flow_approval.py .
 
 CMD [ "pytest", "docker_test_flow_approval.py"]
