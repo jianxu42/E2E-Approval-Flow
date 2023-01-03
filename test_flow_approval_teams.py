@@ -12,6 +12,7 @@ TEAMS_FLOW_LOCATION = ''
 TEST_USER = os.environ['TEST_USER']
 TEST_PWD = os.environ['TEST_PWD']
 TEST_FLOW = os.environ['TEST_FLOW']
+TEST_FLOW_ENV = os.environ['TEST_FLOW_ENV']
 TEST_APPROVAL_TEAMS = os.environ['TEST_APPROVAL_TEAMS']
 
 
@@ -63,7 +64,7 @@ def test_approval_teams(context: BrowserContext):
         approval_tab_view.get_by_role("menuitem", name="Dynamics FTE GCR (default)").click()
         approval_tab_view.get_by_role("button", name="Got it").click()
         approval_tab_view.get_by_role("menuitem", name="Dynamics FTE GCR (default)").click()
-        approval_tab_view.get_by_role("menuitemcheckbox", name="JianTestSolution").click()
+        approval_tab_view.get_by_role("menuitemcheckbox", name=TEST_FLOW_ENV).click()
         approval_tab_view.get_by_role("gridcell", name=APPROVAL_FLOW_TITLE_FOR_TEAMS).click()
         approval_tab_view.get_by_role("button", name="Approve").click()
         page.get_by_role("button", name="Approvals Toolbar").click()
