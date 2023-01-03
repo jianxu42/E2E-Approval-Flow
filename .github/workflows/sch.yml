@@ -21,7 +21,7 @@ jobs:
       TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL_ASIA}}
     strategy:
       matrix:
-        client: [portal, teams, mail]
+        client: [ portal, teams, mail ]
       fail-fast: false
     steps:
       - name: Checkout repository
@@ -45,7 +45,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v3
         with:
-          name: trace_${{matrix.client}}
+          name: Asia_trace_${{matrix.client}}
           path: |
             ./${{matrix.client}}.png
             ./popup_${{matrix.client}}.png
@@ -58,7 +58,7 @@ jobs:
       TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL_EUROPE}}
     strategy:
       matrix:
-        client: [portal, teams, mail]
+        client: [ portal, teams, mail ]
       fail-fast: false
     steps:
       - name: Checkout repository
@@ -82,7 +82,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v3
         with:
-          name: trace_${{matrix.client}}
+          name: Europe_trace_${{matrix.client}}
           path: |
             ./${{matrix.client}}.png
             ./popup_${{matrix.client}}.png
