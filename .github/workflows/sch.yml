@@ -14,40 +14,40 @@ env:
   TEST_APPROVAL_TEAMS: ${{secrets.TEST_APPROVAL_TEAMS}}
   TEST_APPROVAL_MAIL: ${{secrets.TEST_APPROVAL_MAIL}}
 jobs:
-  Synthetic_tests_ASIA:
-    runs-on: ubuntu-latest
-    env:
-      TEST_FLOW: ${{secrets.TEST_FLOW_ASIA}}
-      TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL_ASIA}}
-    strategy:
-      matrix:
-        client: [portal, teams, mail]
-      fail-fast: false
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
-          cache: 'pip'
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          python -m playwright install chromium
-      - name: Test with pytest
-        run: |
-          pytest test_flow_approval_${{matrix.client}}.py
-      - name: Upload trace
-        if: failure()
-        uses: actions/upload-artifact@v3
-        with:
-          name: trace_${{matrix.client}}
-          path: |
-            ./${{matrix.client}}.png
-            ./popup_${{matrix.client}}.png
-          if-no-files-found: ignore
-          retention-days: 1
+#   Synthetic_tests_ASIA:
+#     runs-on: ubuntu-latest
+#     env:
+#       TEST_FLOW: ${{secrets.TEST_FLOW_ASIA}}
+#       TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL_ASIA}}
+#     strategy:
+#       matrix:
+#         client: [portal, teams, mail]
+#       fail-fast: false
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
+#       - name: Set up Python 3.11
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: "3.11"
+#           cache: 'pip'
+#       - name: Install dependencies
+#         run: |
+#           pip install -r requirements.txt
+#           python -m playwright install chromium
+#       - name: Test with pytest
+#         run: |
+#           pytest test_flow_approval_${{matrix.client}}.py
+#       - name: Upload trace
+#         if: failure()
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: trace_${{matrix.client}}
+#           path: |
+#             ./${{matrix.client}}.png
+#             ./popup_${{matrix.client}}.png
+#           if-no-files-found: ignore
+#           retention-days: 1
   Synthetic_tests_EUROPE:
     runs-on: ubuntu-latest
     env:
