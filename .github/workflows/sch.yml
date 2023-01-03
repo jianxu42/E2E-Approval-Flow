@@ -37,7 +37,7 @@ jobs:
           python -m playwright install chromium
       - name: set environment variable
         run: |
-          TEST_FLOW=${{matrix.flow}}
+          echo "TEST_FLOW=${{matrix.flow}}" >> $GITHUB_ENV
       - name: Test with pytest
         run: |
           pytest test_flow_approval_${{matrix.client}}.py
