@@ -8,6 +8,10 @@ on:
     branches: [ "main" ]
   schedule:
     - cron: '*/10 * * * *'
+env:
+  TEST_USER: ${{secrets.TEST_USER}}
+  TEST_PWD: ${{secrets.TEST_PWD}}
+  TEST_FLOW: ${{secrets.TEST_FLOW}}
 jobs:
   portal:
     runs-on: ubuntu-latest
@@ -26,9 +30,6 @@ jobs:
           playwright install
       - name: Test with pytest
         env:
-          TEST_USER: ${{secrets.TEST_USER}}
-          TEST_PWD: ${{secrets.TEST_PWD}}
-          TEST_FLOW: ${{secrets.TEST_FLOW}}
           TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
         run: |
           pytest test_flow_approval_portal.py
@@ -56,9 +57,6 @@ jobs:
           playwright install
       - name: Test with pytest
         env:
-          TEST_USER: ${{secrets.TEST_USER}}
-          TEST_PWD: ${{secrets.TEST_PWD}}
-          TEST_FLOW: ${{secrets.TEST_FLOW}}
           TEST_APPROVAL_TEAMS: ${{secrets.TEST_APPROVAL_TEAMS}}
         run: |
           pytest test_flow_approval_teams.py
@@ -86,9 +84,6 @@ jobs:
           playwright install
       - name: Test with pytest
         env:
-          TEST_USER: ${{secrets.TEST_USER}}
-          TEST_PWD: ${{secrets.TEST_PWD}}
-          TEST_FLOW: ${{secrets.TEST_FLOW}}
           TEST_APPROVAL_MAIL: ${{secrets.TEST_APPROVAL_MAIL}}
         run: |
           pytest test_flow_approval_mail.py
