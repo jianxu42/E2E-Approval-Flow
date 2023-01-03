@@ -11,7 +11,7 @@ on:
 env:
   TEST_USER: ${{secrets.TEST_USER}}
   TEST_PWD: ${{secrets.TEST_PWD}}
-# TEST_FLOW: ${{secrets.TEST_FLOW}}
+  TEST_FLOW: ${{secrets.TEST_FLOW}}
   TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
   TEST_APPROVAL_TEAMS: ${{secrets.TEST_APPROVAL_TEAMS}}
   TEST_APPROVAL_MAIL: ${{secrets.TEST_APPROVAL_MAIL}}
@@ -21,7 +21,7 @@ jobs:
     strategy:
       matrix:
         client: [portal, teams, mail]
-        flow: ${{secrets.TEST_FLOW}}
+        flow: ${{env.TEST_FLOW}}
       fail-fast: false
     steps:
       - name: Checkout repository
