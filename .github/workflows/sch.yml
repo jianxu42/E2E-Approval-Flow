@@ -11,18 +11,17 @@ on:
 env:
   TEST_USER: ${{secrets.TEST_USER}}
   TEST_PWD: ${{secrets.TEST_PWD}}
-#   TEST_FLOW: ${{secrets.TEST_FLOW}}
+# TEST_FLOW: ${{secrets.TEST_FLOW}}
   TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
   TEST_APPROVAL_TEAMS: ${{secrets.TEST_APPROVAL_TEAMS}}
   TEST_APPROVAL_MAIL: ${{secrets.TEST_APPROVAL_MAIL}}
 jobs:
   Synthetic_tests:
-    env:
-      TEST_FLOW: ${{secrets.TEST_FLOW}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
         client: [portal, teams, mail]
+        flow: ${{secrets.TEST_FLOW}}
       fail-fast: false
     steps:
       - name: Checkout repository
@@ -36,6 +35,9 @@ jobs:
         run: |
           pip install -r requirements.txt
           python -m playwright install chromium
+      - name: set environment variable
+        run: |
+          TEST_FLOW=${{matrix.flow}}
       - name: Test with pytest
         run: |
           pytest test_flow_approval_${{matrix.client}}.py
