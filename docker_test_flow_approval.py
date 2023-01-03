@@ -117,7 +117,6 @@ def test_approval_mail(context: BrowserContext):
     with page.expect_popup() as page_info:
         page.get_by_role("menuitem", name="Open in new window").click()
     popup_page = page_info.value
-    popup_page.wait_for_timeout(3000)
     popup_page.get_by_role("button", name="Approve").click()
     popup_page.get_by_role("button", name="Submit").click()
     popup_page.wait_for_timeout(3000)
@@ -138,7 +137,7 @@ def test_approval_teams(context: BrowserContext):
     page.get_by_role("button", name="Sign in").click()
     page.get_by_role("button", name="Yes").click()
 
-    page.wait_for_timeout(10000)
+    page.wait_for_timeout(5000)
     approval_tab_view = page.frame_locator("internal:attr=[title=\"Approvals Tab View\"i]")
     approval_tab_view.get_by_role("menuitem", name="Dynamics FTE GCR (default)").click()
     approval_tab_view.get_by_role("button", name="Got it").click()
