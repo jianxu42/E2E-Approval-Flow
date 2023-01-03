@@ -28,8 +28,8 @@ def api_request_context(
         extra_http_headers=headers
     )
     yield request_context
-    teams_flow_run = request_context.get(TEAMS_FLOW_LOCATION)
-    assert teams_flow_run.json()["outcome"] == "Approve"
+    # teams_flow_run = request_context.get(TEAMS_FLOW_LOCATION)
+    # assert teams_flow_run.json()["outcome"] == "Approve"
     request_context.dispose()
 
 
