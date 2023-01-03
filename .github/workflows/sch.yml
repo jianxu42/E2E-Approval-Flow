@@ -11,7 +11,7 @@ on:
 env:
   TEST_USER: ${{secrets.TEST_USER}}
   TEST_PWD: ${{secrets.TEST_PWD}}
-# TEST_FLOW: ${{secrets.TEST_FLOW}}
+  TEST_FLOW: ${{secrets.TEST_FLOW}}
   TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
   TEST_APPROVAL_TEAMS: ${{secrets.TEST_APPROVAL_TEAMS}}
   TEST_APPROVAL_MAIL: ${{secrets.TEST_APPROVAL_MAIL}}
@@ -21,8 +21,6 @@ jobs:
     strategy:
       matrix:
         client: [portal, teams, mail]
-        flow: ["https://prod-31.southeastasia.logic.azure.com:443/workflows/3fe6a4e957c7454ca5b74d19b85cd1c2/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=SIzpNQZRMxEiaN4XR1MxiA3seradJ_ZkTes7ftU5Uhw", "https://prod-07.westeurope.logic.azure.com:443/workflows/a776de380c0d4307bc3b9323d3c025de/triggers/manual/paths/invoke?api-version=2016-06-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=WLjfEFcnhDjarci7j1-pvdQF19CGZ5vmWqIzcLqLblA"]
-      fail-fast: false
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -35,9 +33,6 @@ jobs:
         run: |
           pip install -r requirements.txt
           python -m playwright install chromium
-      - name: set environment variable
-        run: |
-          echo "TEST_FLOW=${{matrix.flow}}" >> $GITHUB_ENV
       - name: Test with pytest
         run: |
           pytest test_flow_approval_${{matrix.client}}.py
