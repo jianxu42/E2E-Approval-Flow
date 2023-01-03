@@ -25,12 +25,11 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
+          cache: 'pip'
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install pytest-playwright
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          playwright install
+          pip install -r requirements.txt
+          python -m playwright install
       - name: Test with pytest
         run: |
           pytest test_flow_approval_portal.py
@@ -50,12 +49,11 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
+          cache: 'pip'
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install pytest-playwright
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          playwright install
+          pip install -r requirements.txt
+          python -m playwright install
       - name: Test with pytest
         run: |
           pytest test_flow_approval_teams.py
@@ -75,12 +73,11 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.11"
+          cache: 'pip'
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install pytest-playwright
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          playwright install
+          pip install -r requirements.txt
+          python -m playwright install
       - name: Test with pytest
         run: |
           pytest test_flow_approval_mail.py
