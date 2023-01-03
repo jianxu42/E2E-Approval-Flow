@@ -36,9 +36,6 @@ jobs:
         run: |
           pip install -r requirements.txt
           python -m playwright install chromium
-#       - name: Set flow environment variable
-#         run: |
-#           echo "TEST_FLOW_ENV=JianTestAccess" >> $GITHUB_ENV
       - name: Test with pytest
         run: |
           pytest test_flow_approval_${{matrix.client}}.py
@@ -74,9 +71,6 @@ jobs:
         run: |
           pip install -r requirements.txt
           python -m playwright install chromium
-#       - name: Set flow environment variable
-#         run: |
-#           echo "TEST_FLOW_ENV=JianTestSolution" >> $GITHUB_ENV
       - name: Test with pytest
         run: |
           pytest test_flow_approval_${{matrix.client}}.py
