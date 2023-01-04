@@ -60,11 +60,10 @@ def test_approval_teams(context: BrowserContext):
         page.get_by_role("button", name="Yes").click()
 
         page.wait_for_timeout(5000)
+        page.get_by_role("button", name="Dismiss").click()
         approval_tab_view = page.frame_locator("internal:attr=[title=\"Approvals Tab View\"i]")
-        approval_tab_view.get_by_role("menuitem", name="Dynamics FTE GCR (default)").click()
-        if approval_tab_view.locator("'Export approval data to OneDrive'").is_visible():
-            approval_tab_view.get_by_role("button", name="Got it").click()
-            logging.info("Clicked 'Got it'!")
+        approval_tab_view.get_by_role("button", name="Got it").click()
+        approval_tab_view.get_by_role("button", name="Got it").click()
         approval_tab_view.get_by_role("menuitem", name="Dynamics FTE GCR (default)").click()
         approval_tab_view.get_by_role("menuitemcheckbox", name=TEST_FLOW_ENV).click()
         approval_tab_view.get_by_role("gridcell", name=APPROVAL_FLOW_TITLE_FOR_TEAMS).click()
