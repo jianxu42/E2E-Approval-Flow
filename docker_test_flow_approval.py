@@ -91,6 +91,7 @@ def test_approval_portal(context: BrowserContext):
     page.get_by_placeholder("Password").fill(TEST_PWD)
     page.get_by_role("button", name="Sign in").click()
     page.get_by_role("button", name="Yes").click()
+    logging.info("Login portal successful!")
 
     page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").click()
     page.get_by_text("Select an option").click()
@@ -114,6 +115,7 @@ def test_approval_mail(context: BrowserContext):
     page.get_by_placeholder("Password").fill(TEST_PWD)
     page.get_by_role("button", name="Sign in").click()
     page.get_by_role("button", name="Yes").click()
+    logging.info("Login mail successful!")
 
     page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
     page.wait_for_timeout(9000)
@@ -142,6 +144,7 @@ def test_approval_teams(context: BrowserContext):
     page.get_by_placeholder("Password").fill(TEST_PWD)
     page.get_by_role("button", name="Sign in").click()
     page.get_by_role("button", name="Yes").click()
+    logging.info("Login Teams successful!")
 
     page.wait_for_timeout(8000)
     approval_tab_view = page.frame_locator("internal:attr=[title=\"Approvals Tab View\"i]")

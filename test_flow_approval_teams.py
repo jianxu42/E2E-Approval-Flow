@@ -44,7 +44,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global TEAMS_FLOW_LOCATION
     TEAMS_FLOW_LOCATION = approval_flow_for_teams_flow_run.headers["location"]
     assert approval_flow_for_teams_flow_run.ok
-    logging.info("The approval flow is triggered!")
+    logging.info("The approval flow for Teams is triggered!")
 
 
 def test_approval_teams(context: BrowserContext):
@@ -59,6 +59,7 @@ def test_approval_teams(context: BrowserContext):
         page.get_by_placeholder("Password").fill(TEST_PWD)
         page.get_by_role("button", name="Sign in").click()
         page.get_by_role("button", name="Yes").click()
+        logging.info("Login Teams successful!")
 
         page.wait_for_timeout(8000)
         approval_tab_view = page.frame_locator("internal:attr=[title=\"Approvals Tab View\"i]")
@@ -73,7 +74,7 @@ def test_approval_teams(context: BrowserContext):
         approval_tab_view.get_by_role("gridcell", name=APPROVAL_FLOW_TITLE_FOR_TEAMS).click()
         locator = approval_tab_view.locator("'Final status: Approved'")
         expect(locator).to_contain_text("Final status: Approved")
-        logging.info("Approved from teams!")
+        logging.info("Approved from Teams!")
 
     except (TimeoutError, AssertionError) as e:
         page.screenshot(path="teams.png")

@@ -43,7 +43,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global PORTAL_FLOW_LOCATION
     PORTAL_FLOW_LOCATION = approval_flow_for_portal_flow_run.headers["location"]
     assert approval_flow_for_portal_flow_run.ok
-    logging.info("The approval flow is triggered!")
+    logging.info("The approval flow for portal is triggered!")
 
 
 def test_approval_portal(context: BrowserContext):
@@ -58,6 +58,7 @@ def test_approval_portal(context: BrowserContext):
         page.get_by_placeholder("Password").fill(TEST_PWD)
         page.get_by_role("button", name="Sign in").click()
         page.get_by_role("button", name="Yes").click()
+        logging.info("Login portal successful!")
 
         page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").click()
         page.get_by_text("Select an option").click()

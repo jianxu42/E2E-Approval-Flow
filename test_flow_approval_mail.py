@@ -44,7 +44,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global MAIL_FLOW_LOCATION
     MAIL_FLOW_LOCATION = approval_flow_for_mail_flow_run.headers["location"]
     assert approval_flow_for_mail_flow_run.ok
-    logging.info("The approval flow is triggered!")
+    logging.info("The approval flow for mail is triggered!")
 
 
 def test_approval_mail(context: BrowserContext):
@@ -60,6 +60,7 @@ def test_approval_mail(context: BrowserContext):
         page.get_by_placeholder("Password").fill(TEST_PWD)
         page.get_by_role("button", name="Sign in").click()
         page.get_by_role("button", name="Yes").click()
+        logging.info("Login mail successful!")
 
         page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
         page.wait_for_timeout(9000)
