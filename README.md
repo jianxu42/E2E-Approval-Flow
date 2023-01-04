@@ -1,6 +1,7 @@
 # E2E-Approval-Flow
 
 The purpose of this verification is to ensure the end-to-end functionality of the approval process.
+It can be deployed on k8s or GitHub Actions.
 
 #### Flow diagram
 ```mermaid
