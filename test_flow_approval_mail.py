@@ -44,6 +44,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global MAIL_FLOW_LOCATION
     MAIL_FLOW_LOCATION = approval_flow_for_mail_flow_run.headers["location"]
     assert approval_flow_for_mail_flow_run.ok
+    logging.info("The approval flow is triggered!")
 
 
 def test_approval_mail(context: BrowserContext):
@@ -73,6 +74,7 @@ def test_approval_mail(context: BrowserContext):
 
         locator = mail_popup_page.locator("'Approved'")
         expect(locator).to_contain_text("Approved")
+        logging.info("Approved from mail!")
 
     except (TimeoutError, AssertionError) as e:
         page.screenshot(path="mail.png")

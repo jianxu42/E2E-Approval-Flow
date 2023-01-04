@@ -1,4 +1,5 @@
 import datetime as dt
+import logging
 import os
 from datetime import datetime as dt_dt
 from typing import Generator
@@ -76,6 +77,8 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     TEAMS_FLOW_LOCATION = approval_flow_for_teams_flow_run.headers["location"]
     assert approval_flow_for_teams_flow_run.ok
 
+    logging.info("The approval flows are triggered!")
+
 
 def test_approval_portal(context: BrowserContext):
     page = context.new_page()
@@ -97,6 +100,7 @@ def test_approval_portal(context: BrowserContext):
     page.wait_for_timeout(3000)
     locator = page.locator("'Respond: Approve'")
     expect(locator).to_contain_text("Respond: Approve")
+    logging.info("Approved from portal!")
 
 
 def test_approval_mail(context: BrowserContext):
@@ -124,6 +128,7 @@ def test_approval_mail(context: BrowserContext):
 
     locator = popup_page.locator("'Approved'")
     expect(locator).to_contain_text("Approved")
+    logging.info("Approved from mail!")
 
 
 def test_approval_teams(context: BrowserContext):
@@ -151,3 +156,4 @@ def test_approval_teams(context: BrowserContext):
     approval_tab_view.get_by_role("gridcell", name=APPROVAL_FLOW_TITLE_FOR_TEAMS).click()
     locator = approval_tab_view.locator("'Final status: Approved'")
     expect(locator).to_contain_text("Final status: Approved")
+    logging.info("Approved from teams!")

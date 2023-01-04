@@ -43,6 +43,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global PORTAL_FLOW_LOCATION
     PORTAL_FLOW_LOCATION = approval_flow_for_portal_flow_run.headers["location"]
     assert approval_flow_for_portal_flow_run.ok
+    logging.info("The approval flow is triggered!")
 
 
 def test_approval_portal(context: BrowserContext):
@@ -66,6 +67,7 @@ def test_approval_portal(context: BrowserContext):
         page.wait_for_timeout(3000)
         locator = page.locator("'Respond: Approve'")
         expect(locator).to_contain_text("Respond: Approve")
+        logging.info("Approved from portal!")
 
     except (TimeoutError, AssertionError) as e:
         page.screenshot(path="portal.png")
