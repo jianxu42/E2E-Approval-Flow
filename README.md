@@ -1,6 +1,6 @@
 # E2E-Approval-Flow
 
-This verification aims to confirm the end-to-end approval process.
+The purpose of this verification is to ensure the end-to-end functionality of the approval process.
 
 Flow diagram
 ```mermaid
