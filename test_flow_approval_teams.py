@@ -44,7 +44,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global TEAMS_FLOW_LOCATION
     TEAMS_FLOW_LOCATION = approval_flow_for_teams_flow_run.headers["location"]
     assert approval_flow_for_teams_flow_run.ok
-    logging.info("The approval flow for Teams is triggered!")
+    logging.info("The approval flow for Teams was triggered!")
 
 
 def test_approval_teams(context: BrowserContext):

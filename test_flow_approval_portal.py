@@ -43,7 +43,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global PORTAL_FLOW_LOCATION
     PORTAL_FLOW_LOCATION = approval_flow_for_portal_flow_run.headers["location"]
     assert approval_flow_for_portal_flow_run.ok
-    logging.info("The approval flow for portal is triggered!")
+    logging.info("The approval flow for portal was triggered!")
 
 
 def test_approval_portal(context: BrowserContext):

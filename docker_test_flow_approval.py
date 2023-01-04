@@ -77,7 +77,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     TEAMS_FLOW_LOCATION = approval_flow_for_teams_flow_run.headers["location"]
     assert approval_flow_for_teams_flow_run.ok
 
-    logging.info("The approval flows are triggered!")
+    logging.info("The approval flows were triggered!")
 
 
 def test_approval_portal(context: BrowserContext):
