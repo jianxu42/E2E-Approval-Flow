@@ -75,7 +75,7 @@ def test_approval_teams(context: BrowserContext):
         locator = approval_tab_view.locator("'Final status: Approved'")
         expect(locator).to_contain_text("Final status: Approved")
 
-    except TimeoutError as e:
+    except (TimeoutError, AssertionError) as e:
         page.screenshot(path="teams.png")
         logging.error(e)
         exit(1)
