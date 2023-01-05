@@ -12,4 +12,4 @@ RUN python -m venv flow-env &&\
 
 COPY docker_test_flow_approval.py pytest.ini ./
 
-CMD [ "./flow-env/bin/activate", "&&", "pytest", "docker_test_flow_approval.py"]
+CMD [ ". ./flow-env/bin/activate &&", "&&", "pytest", "docker_test_flow_approval.py"]
