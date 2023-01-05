@@ -5,7 +5,7 @@ FROM python:3.11.1-slim
 WORKDIR /app
 
 RUN python -m venv flow-env &&\
-    source flow-env/bin/activate &&\
+    . ./flow-env/bin/activate &&\
     python -m pip install pytest-playwright &&\
     python -m playwright install chromium &&\
     python -m playwright install-deps
