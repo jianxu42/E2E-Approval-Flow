@@ -7,10 +7,10 @@ It can be deployed on k8s or GitHub Actions.
 ```mermaid
 graph LR
     Playwright[GithubAction/Kubernetes]--S1:trigger-->ApprovalFlow;
-    ApprovalFlow--S2:send-->FlowPortalApproval;
+    ApprovalFlow--S2:send-->PortalApproval;
     ApprovalFlow--S2:send-->TeamsApproval;
     ApprovalFlow--S2:send-->MailApproval;
-    Playwright[GithubAction/Kubernetes]--S3:approve-->FlowPortalApproval;
+    Playwright[GithubAction/Kubernetes]--S3:approve-->PortalApproval;
     Playwright[GithubAction/Kubernetes]--S3:approve-->TeamsApproval;
     Playwright[GithubAction/Kubernetes]--S3:approve-->MailApproval;
     Playwright[GithubAction/Kubernetes]--S4:check_status-->ApprovalFlow;
