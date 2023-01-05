@@ -6,11 +6,14 @@ It can be deployed on k8s or GitHub Actions.
 #### Flow diagram
 ```mermaid
 graph LR
-    Playwright[GithubAction/Kubernetes]--S1:trigger-->ApprovalFlowEndpoint;
-    Playwright[GithubAction/Kubernetes]--S2:approve-->FlowPortalApproval;
-    Playwright[GithubAction/Kubernetes]--S2:approve-->TeamsApproval;
-    Playwright[GithubAction/Kubernetes]--S2:approve-->MailApproval;
-    Playwright[GithubAction/Kubernetes]--S3:check_status-->ApprovalFlowEndpoint;
+    Playwright[GithubAction/Kubernetes]--S1:trigger-->ApprovalFlow;
+    ApprovalFlow--S2:send-->FlowPortalApproval;
+    ApprovalFlow--S2:send-->TeamsApproval;
+    ApprovalFlow--S2:send-->MailApproval;
+    Playwright[GithubAction/Kubernetes]--S3:approve-->FlowPortalApproval;
+    Playwright[GithubAction/Kubernetes]--S3:approve-->TeamsApproval;
+    Playwright[GithubAction/Kubernetes]--S3:approve-->MailApproval;
+    Playwright[GithubAction/Kubernetes]--S4:check_status-->ApprovalFlow;
 ```
 
 #### Approval Flow
