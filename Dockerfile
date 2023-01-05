@@ -4,9 +4,11 @@ FROM python:3.11.1-slim
 
 WORKDIR /app
 
-RUN pip3 install pytest-playwright &&\
-    playwright install chromium &&\
-    playwright install-deps
+RUN python -m venv flow-env &&\
+    source flow-env/bin/activate &&\
+    python -m pip install pytest-playwright &&\
+    python -m playwright install chromium &&\
+    python -m playwright install-deps
 
 COPY docker_test_flow_approval.py pytest.ini ./
 
