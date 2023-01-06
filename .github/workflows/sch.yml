@@ -9,14 +9,14 @@ on:
   schedule:
     - cron: '*/10 * * * *'
 env:
-  TEST_USER: ${{secrets.TEST_USER}}
-  TEST_PWD: ${{secrets.TEST_PWD}}
   TEST_APPROVAL_TEAMS: ${{secrets.TEST_APPROVAL_TEAMS}}
   TEST_APPROVAL_MAIL: ${{secrets.TEST_APPROVAL_MAIL}}
 jobs:
   Synthetic_tests_Asia:
     runs-on: ubuntu-latest
     env:
+      TEST_USER: ${{secrets.TEST_USER_ASIA}}
+      TEST_PWD: ${{secrets.TEST_PWD_ASIA}}
       TEST_FLOW: ${{secrets.TEST_FLOW_ASIA}}
       TEST_FLOW_ENV: ${{secrets.TEST_FLOW_ENV_ASIA}}
       TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL_ASIA}}
@@ -52,6 +52,8 @@ jobs:
   Synthetic_tests_Europe:
     runs-on: ubuntu-latest
     env:
+      TEST_USER: ${{secrets.TEST_USER_EUROPE}}
+      TEST_PWD: ${{secrets.TEST_PWD_EUROPE}}
       TEST_FLOW: ${{secrets.TEST_FLOW_EUROPE}}
       TEST_FLOW_ENV: ${{secrets.TEST_FLOW_ENV_EUROPE}}
       TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL_EUROPE}}
