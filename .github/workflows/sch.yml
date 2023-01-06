@@ -1,7 +1,7 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
 
-name: Scheduled Tasks
+name: Synthetic Tests
 on:
   workflow_dispatch:
   schedule:
@@ -10,7 +10,7 @@ env:
   TEST_APPROVAL_TEAMS: ${{secrets.TEST_APPROVAL_TEAMS}}
   TEST_APPROVAL_MAIL: ${{secrets.TEST_APPROVAL_MAIL}}
 jobs:
-  Synthetic_tests_Asia:
+  Asia:
     runs-on: ubuntu-latest
     env:
       TEST_USER: ${{secrets.TEST_USER_ASIA}}
@@ -47,7 +47,7 @@ jobs:
             ./popup_${{matrix.client}}.png
           if-no-files-found: ignore
           retention-days: 1
-  Synthetic_tests_Europe:
+  Europe:
     runs-on: ubuntu-latest
     env:
       TEST_USER: ${{secrets.TEST_USER_EUROPE}}
