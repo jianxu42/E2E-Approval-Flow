@@ -7,7 +7,7 @@ on:
       - 'docker_test_flow_approval.py'
       - 'pytest.ini'
       - 'Dockerfile'
-      - '.github\workflows\docker-image.yml'
+      - '.github/workflows/docker-image.yml'
   workflow_dispatch:
 jobs:
   build:
