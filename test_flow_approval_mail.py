@@ -30,7 +30,7 @@ def api_request_context(
     )
     yield request_context
     mail_flow_run = request_context.get(MAIL_FLOW_LOCATION)
-    if not mail_flow_run.json()["properties"]:
+    if str(mail_flow_run.json()).find("outcome") != -1:
         assert mail_flow_run.json()["outcome"] == "Approve"
     request_context.dispose()
 
