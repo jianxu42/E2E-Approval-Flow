@@ -3,6 +3,11 @@ run-name: Updated at ${{github.event.repository.updated_at}} by @${{github.actor
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - 'docker_test_flow_approval.py'
+      - 'pytest.ini'
+      - 'Dockerfile'
+      - '.github\workflows\docker-image.yml'
   workflow_dispatch:
 jobs:
   build:
