@@ -78,7 +78,7 @@ def test_approval_teams(context: BrowserContext):
         expect(locator).to_contain_text("Final status: Approved")
         logging.info("Approved from Teams!")
 
-    except (TimeoutError, AssertionError) as e:
+    except TimeoutError as e:
         page.screenshot(path="teams.png")
         logging.error(e)
         exit(1)
