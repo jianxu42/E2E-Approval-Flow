@@ -1,6 +1,7 @@
 import datetime as dt
 import logging
 import os
+import random
 from datetime import datetime as dt_dt
 from typing import Generator
 
@@ -62,7 +63,7 @@ def test_approval_teams(context: BrowserContext):
         page.get_by_role("button", name="Yes").click()
         logging.info("Login Teams successful!")
 
-        page.wait_for_timeout(8000)
+        page.wait_for_timeout(random.randrange(3000, 8000))
         approval_tab_view = page.frame_locator("internal:attr=[title=\"Approvals Tab View\"i]")
         if approval_tab_view.get_by_role("menuitem", name="Export").is_enabled():
             approval_tab_view.get_by_role("menuitem", name="Export").click()
