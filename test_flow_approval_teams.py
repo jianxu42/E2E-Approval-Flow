@@ -63,7 +63,7 @@ def test_approval_teams(context: BrowserContext):
 
         page.wait_for_timeout(8000)
         approval_tab_view = page.frame_locator("internal:attr=[title=\"Approvals Tab View\"i]")
-        if approval_tab_view.get_by_role("menuitem", name="Export").is_visible():
+        if approval_tab_view.get_by_role("menuitem", name="Export").is_enabled():
             approval_tab_view.get_by_role("menuitem", name="Export").click()
             approval_tab_view.get_by_role("button", name="Close").click()
         approval_tab_view.get_by_role("menuitem", name="Dynamics FTE GCR (default)").click()
