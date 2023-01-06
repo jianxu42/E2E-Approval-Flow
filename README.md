@@ -26,7 +26,7 @@ graph LR
 - [Power Automate](https://powerautomate.microsoft.com/)
 - [Approvals](https://learn.microsoft.com/en-us/connectors/approvals/)
 - [Playwright](https://playwright.dev/python/)
-- [Github Actions](https://github.com/actions)
+- [GitHub Actions](https://github.com/actions)
 - [Kubernetes](https://kubernetes.io/)
 - [Docker](https://www.docker.com/)
 - [Foresight](https://www.runforesight.com/)
