@@ -35,12 +35,12 @@ def api_request_context(
         extra_http_headers=headers
     )
     yield request_context
-    # portal_flow_run = request_context.get(PORTAL_FLOW_LOCATION)
-    # assert portal_flow_run.json()["outcome"] == "Approve"
-    # mail_flow_run = request_context.get(MAIL_FLOW_LOCATION)
-    # assert mail_flow_run.json()["outcome"] == "Approve"
-    # teams_flow_run = request_context.get(TEAMS_FLOW_LOCATION)
-    # assert teams_flow_run.json()["outcome"] == "Approve"
+    portal_flow_run = request_context.get(PORTAL_FLOW_LOCATION)
+    assert portal_flow_run.json()["outcome"] == "Approve"
+    mail_flow_run = request_context.get(MAIL_FLOW_LOCATION)
+    assert mail_flow_run.json()["outcome"] == "Approve"
+    teams_flow_run = request_context.get(TEAMS_FLOW_LOCATION)
+    assert teams_flow_run.json()["outcome"] == "Approve"
     request_context.dispose()
 
 
