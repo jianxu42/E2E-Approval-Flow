@@ -7,7 +7,7 @@ on:
   #  push:
   #    branches: [ "main" ]
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '*/20 * * * *'
 env:
   TEST_APPROVAL_TEAMS: ${{secrets.TEST_APPROVAL_TEAMS}}
   TEST_APPROVAL_MAIL: ${{secrets.TEST_APPROVAL_MAIL}}
