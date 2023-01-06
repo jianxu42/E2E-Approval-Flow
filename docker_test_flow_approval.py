@@ -6,7 +6,7 @@ from datetime import datetime as dt_dt
 from typing import Generator
 
 import pytest
-from playwright.sync_api import Playwright, APIRequestContext, BrowserContext, expect, TimeoutError
+from playwright.sync_api import Playwright, APIRequestContext, BrowserContext, expect
 
 APPROVAL_FLOW_TITLE_FOR_PORTAL = ''
 PORTAL_FLOW_LOCATION = ''
@@ -125,12 +125,9 @@ def test_approval_mail(context: BrowserContext):
         page.get_by_role("menuitem", name="Open in new window").click()
     popup_page = page_info.value
     popup_page.wait_for_timeout(random.randrange(6000, 9000))
-    if expect(popup_page.get_by_role("button", name="Approve")).to_be_visible():
-        popup_page.get_by_role("button", name="Approve").click()
-        popup_page.get_by_role("button", name="Submit").click()
-        popup_page.wait_for_timeout(random.randrange(6000, 9000))
-    else:
-        raise TimeoutError
+    popup_page.get_by_role("button", name="Approve").click()
+    popup_page.get_by_role("button", name="Submit").click()
+    popup_page.wait_for_timeout(random.randrange(6000, 9000))
 
     locator = popup_page.locator("'Approved'")
     expect(locator).to_contain_text("Approved")
