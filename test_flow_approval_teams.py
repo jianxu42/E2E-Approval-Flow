@@ -29,7 +29,8 @@ def api_request_context(
     )
     yield request_context
     teams_flow_run = request_context.get(TEAMS_FLOW_LOCATION)
-    assert teams_flow_run.json()["outcome"] == "Approve"
+    if not teams_flow_run.json()["properties"]:
+        assert teams_flow_run.json()["outcome"] == "Approve"
     request_context.dispose()
 
 

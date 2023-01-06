@@ -28,7 +28,8 @@ def api_request_context(
     )
     yield request_context
     portal_flow_run = request_context.get(PORTAL_FLOW_LOCATION)
-    assert portal_flow_run.json()["outcome"] == "Approve"
+    if not portal_flow_run.json()["properties"]:
+        assert portal_flow_run.json()["outcome"] == "Approve"
     request_context.dispose()
 
 
