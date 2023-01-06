@@ -4,6 +4,7 @@ The purpose of this verification is to ensure the end-to-end functionality of th
 It can be deployed on k8s or GitHub Actions.
 
 #### Flow diagram
+
 ```mermaid
 graph LR
     Playwright[GithubAction/Kubernetes]--S1:trigger-->ApprovalFlow;
@@ -17,12 +18,15 @@ graph LR
 ```
 
 #### Approval Flow
+
 ![Alt text](approval_flow.png)
 
-#### Tools
+#### Tools & Documents
+
 - [Power Automate](https://powerautomate.microsoft.com/)
 - [Approvals](https://learn.microsoft.com/en-us/connectors/approvals/)
 - [Playwright](https://playwright.dev/python/)
 - [Github Actions](https://github.com/actions)
 - [Kubernetes](https://kubernetes.io/)
 - [Docker](https://www.docker.com/)
+- [Synthetic Monitoring Tests](https://microsoft.github.io/code-with-engineering-playbook/automated-testing/synthetic-monitoring-tests/)
