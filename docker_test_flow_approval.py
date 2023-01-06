@@ -1,6 +1,7 @@
 import datetime as dt
 import logging
 import os
+import random
 from datetime import datetime as dt_dt
 from typing import Generator
 
@@ -117,7 +118,7 @@ def test_approval_mail(context: BrowserContext):
     page.get_by_role("button", name="Yes").click()
     logging.info("Login mail successful!")
 
-    page.wait_for_timeout(6000)
+    page.wait_for_timeout(random.randrange(6000, 9000))
     page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
     page.get_by_role("menuitem", name="More mail actions").click()
     page.get_by_role("menuitem", name="View").filter(has_text="View").click()
@@ -126,7 +127,7 @@ def test_approval_mail(context: BrowserContext):
     popup_page = page_info.value
     popup_page.get_by_role("button", name="Approve").click()
     popup_page.get_by_role("button", name="Submit").click()
-    popup_page.wait_for_timeout(6000)
+    popup_page.wait_for_timeout(random.randrange(6000, 9000))
 
     locator = popup_page.locator("'Approved'")
     expect(locator).to_contain_text("Approved")
