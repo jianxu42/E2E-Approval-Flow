@@ -124,7 +124,7 @@ def test_approval_mail(context: BrowserContext):
     with page.expect_popup() as page_info:
         page.get_by_role("menuitem", name="Open in new window").click()
     popup_page = page_info.value
-    popup_page.wait_for_timeout(random.randrange(6000, 12000))
+    popup_page.wait_for_timeout(random.randrange(6000, 9000))
     popup_page.get_by_role("button", name="Approve").click()
     popup_page.get_by_role("button", name="Submit").click()
     popup_page.wait_for_timeout(random.randrange(6000, 9000))
