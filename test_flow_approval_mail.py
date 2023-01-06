@@ -63,13 +63,13 @@ def test_approval_mail(context: BrowserContext):
         page.get_by_role("button", name="Yes").click()
         logging.info("Login mail successful!")
 
+        page.wait_for_timeout(random.randrange(10000, 12000))
         page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
         page.get_by_role("menuitem", name="More mail actions").click()
         page.get_by_role("menuitem", name="View").filter(has_text="View").click()
         with page.expect_popup() as page_info:
             page.get_by_role("menuitem", name="Open in new window").click()
         mail_popup_page = page_info.value
-        mail_popup_page.wait_for_timeout(random.randrange(10000, 12000))
         mail_popup_page.get_by_role("button", name="Approve").click()
         mail_popup_page.get_by_role("button", name="Submit").click()
         mail_popup_page.wait_for_timeout(random.randrange(6000, 9000))
