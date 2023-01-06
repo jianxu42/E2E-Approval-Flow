@@ -70,9 +70,12 @@ def test_approval_mail(context: BrowserContext):
             page.get_by_role("menuitem", name="Open in new window").click()
         mail_popup_page = page_info.value
         mail_popup_page.wait_for_timeout(random.randrange(6000, 9000))
-        mail_popup_page.get_by_role("button", name="Approve").click()
-        mail_popup_page.get_by_role("button", name="Submit").click()
-        page.wait_for_timeout(random.randrange(6000, 9000))
+        if expect(mail_popup_page.get_by_role("button", name="Approve")).to_be_visible():
+            mail_popup_page.get_by_role("button", name="Approve").click()
+            mail_popup_page.get_by_role("button", name="Submit").click()
+            mail_popup_page.wait_for_timeout(random.randrange(6000, 9000))
+        else:
+            raise TimeoutError
 
         locator = mail_popup_page.locator("'Approved'")
         expect(locator).to_contain_text("Approved")
