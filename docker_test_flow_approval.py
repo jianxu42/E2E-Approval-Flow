@@ -118,8 +118,8 @@ def test_approval_mail(context: BrowserContext):
     page.get_by_role("button", name="Yes").click()
     logging.info("Login mail successful!")
 
-    page.wait_for_timeout(random.randrange(10000, 12000))
     page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
+    page.wait_for_timeout(random.randrange(10000, 12000))
     page.get_by_role("menuitem", name="More mail actions").click()
     page.get_by_role("menuitem", name="View").filter(has_text="View").click()
     with page.expect_popup() as page_info:
@@ -149,10 +149,9 @@ def test_approval_teams(context: BrowserContext):
 
     page.wait_for_timeout(8000)
     approval_tab_view = page.frame_locator("internal:attr=[title=\"Approvals Tab View\"i]")
+    approval_tab_view.get_by_role("menuitem", name="Export").click()
+    approval_tab_view.get_by_role("button", name="Close").click()
     approval_tab_view.get_by_role("menuitem", name="Dynamics FTE GCR (default)").click()
-    if approval_tab_view.get_by_role("button", name="Got it").is_visible():
-        approval_tab_view.get_by_role("button", name="Got it").click()
-        approval_tab_view.get_by_role("menuitem", name="Dynamics FTE GCR (default)").click()
     approval_tab_view.get_by_role("menuitemcheckbox", name=TEST_FLOW_ENV).click()
     approval_tab_view.get_by_role("gridcell", name=APPROVAL_FLOW_TITLE_FOR_TEAMS).click()
     approval_tab_view.get_by_role("button", name="Approve").click()
