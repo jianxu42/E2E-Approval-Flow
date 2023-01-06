@@ -28,9 +28,9 @@ def api_request_context(
         extra_http_headers=headers
     )
     yield request_context
-    teams_flow_run = request_context.get(TEAMS_FLOW_LOCATION)
-    if str(teams_flow_run.json()).find("outcome") != -1:
-        assert teams_flow_run.json()["outcome"] == "Approve"
+    teams_flow_run = request_context.get(TEAMS_FLOW_LOCATION).json()
+    if str(teams_flow_run).find("outcome") != -1:
+        assert teams_flow_run["outcome"] == "Approve"
     request_context.dispose()
 
 

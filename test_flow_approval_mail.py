@@ -29,9 +29,9 @@ def api_request_context(
         extra_http_headers=headers
     )
     yield request_context
-    mail_flow_run = request_context.get(MAIL_FLOW_LOCATION)
-    if str(mail_flow_run.json()).find("outcome") != -1:
-        assert mail_flow_run.json()["outcome"] == "Approve"
+    mail_flow_run = request_context.get(MAIL_FLOW_LOCATION).json()
+    if str(mail_flow_run).find("outcome") != -1:
+        assert mail_flow_run["outcome"] == "Approve"
     request_context.dispose()
 
 
