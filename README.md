@@ -29,4 +29,5 @@ graph LR
 - [Github Actions](https://github.com/actions)
 - [Kubernetes](https://kubernetes.io/)
 - [Docker](https://www.docker.com/)
+- [Foresight](https://www.runforesight.com/)
 - [Synthetic Monitoring Tests](https://microsoft.github.io/code-with-engineering-playbook/automated-testing/synthetic-monitoring-tests/)
