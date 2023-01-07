@@ -68,6 +68,7 @@ def test_approval_portal(context: BrowserContext):
         if not page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").is_visible():
             page.wait_for_timeout(random.randrange(1000, 3000))
             page.reload()
+            logging.warning("The approval flow for portal page was reloaded!")
         page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").click()
         page.get_by_text("Select an option").click()
         page.get_by_role("option", name="Approve").click()
