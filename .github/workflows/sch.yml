@@ -94,3 +94,41 @@ jobs:
             ./popup_${{matrix.client}}.png
           if-no-files-found: ignore
           retention-days: 1
+  US:
+    runs-on: ubuntu-latest
+    environment: US
+    env:
+      TEST_USER: ${{secrets.TEST_USER_US}}
+      TEST_PWD: ${{secrets.TEST_PWD_US}}
+      TEST_FLOW: ${{secrets.TEST_FLOW_US}}
+      TEST_FLOW_ENV: ${{secrets.TEST_FLOW_ENV_US}}
+      TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL_US}}
+    strategy:
+      matrix:
+        client: [ portal, teams, mail ]
+      fail-fast: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install chromium
+      - name: Test with pytest
+        run: |
+          pytest test_flow_approval_${{matrix.client}}.py
+      - name: Upload trace
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Europe_trace_${{matrix.client}}
+          path: |
+            ./${{matrix.client}}.png
+            ./popup_${{matrix.client}}.png
+          if-no-files-found: ignore
+          retention-days: 1
