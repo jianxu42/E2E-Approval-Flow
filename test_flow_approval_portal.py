@@ -1,7 +1,6 @@
 import datetime as dt
 import logging
 import os
-import random
 from datetime import datetime as dt_dt
 from typing import Generator
 
@@ -63,20 +62,13 @@ def test_approval_portal(context: BrowserContext):
         page.get_by_role("button", name="Yes").click()
         logging.info("Login portal successful!")
 
-        if not page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").is_visible():
-            page.wait_for_timeout(random.randrange(1000, 3000))
-            page.reload()
-            logging.warning("Reloaded the approval portal page!")
-            if page.get_by_role("button", name="Close").is_visible():
-                page.get_by_role("button", name="Close").click()
-                logging.warning("Found pop-up window and closed it!")
-
+        if page.get_by_role("button", name="Close").is_visible():
+            page.get_by_role("button", name="Close").click()
         page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").click()
         page.get_by_text("Select an option").click()
         page.get_by_role("option", name="Approve").click()
         page.get_by_role("button", name="Confirm").click()
 
-        page.wait_for_timeout(random.randrange(1000, 3000))
         locator = page.locator("'Respond: Approve'")
         expect(locator).to_contain_text("Respond: Approve")
         logging.info("Approved from portal!")
