@@ -76,7 +76,7 @@ def test_approval_mail(context: BrowserContext):
         mail_popup_page.get_by_role("button", name="Submit").click()
 
         locator = mail_popup_page.locator("'Approved'")
-        expect(locator).to_contain_text("Approved")
+        expect(locator).to_contain_text("Approved", timeout=1000)
         logging.info("Approved from mail!")
 
     except (TimeoutError, AssertionError) as e:
