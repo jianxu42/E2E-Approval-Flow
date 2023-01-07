@@ -82,7 +82,7 @@ def test_approval_mail(context: BrowserContext):
         logging.info("Approved from mail!")
 
     except (TimeoutError, AssertionError) as e:
-        page.screenshot(path="mail.png")
-        mail_popup_page.screenshot(path="popup_mail.png")
+        page.screenshot(path="mail_error.png")
+        mail_popup_page.screenshot(path="popup_mail_error.png")
         logging.error(e)
         exit(1)
