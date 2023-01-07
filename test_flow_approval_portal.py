@@ -49,7 +49,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     logging.info("The approval flow for portal was triggered!")
 
 
-async def test_approval_portal(context: BrowserContext):
+def test_approval_portal(context: BrowserContext):
     time.sleep(3)
     page = context.new_page()
     page.set_default_timeout(timeout=60000)
