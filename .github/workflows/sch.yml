@@ -98,11 +98,11 @@ jobs:
     runs-on: ubuntu-latest
     environment: US
     env:
-      TEST_USER: ${{secrets.TEST_USER_US}}
-      TEST_PWD: ${{secrets.TEST_PWD_US}}
-      TEST_FLOW: ${{secrets.TEST_FLOW_US}}
-      TEST_FLOW_ENV: ${{secrets.TEST_FLOW_ENV_US}}
-      TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL_US}}
+      TEST_USER: ${{secrets.TEST_USER}}
+      TEST_PWD: ${{secrets.TEST_PWD}}
+      TEST_FLOW: ${{secrets.TEST_FLOW}}
+      TEST_FLOW_ENV: ${{secrets.TEST_FLOW_ENV}}
+      TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
     strategy:
       matrix:
         client: [ portal, teams, mail ]
