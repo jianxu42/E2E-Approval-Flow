@@ -126,7 +126,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v3
         with:
-          name: Europe_trace_${{matrix.client}}
+          name: US_trace_${{matrix.client}}
           path: |
             ./${{matrix.client}}.png
             ./popup_${{matrix.client}}.png
