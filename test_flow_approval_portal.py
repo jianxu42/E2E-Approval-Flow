@@ -62,7 +62,7 @@ def test_approval_portal(context: BrowserContext):
         page.get_by_role("button", name="Yes").click()
         logging.info("Login portal successful!")
 
-        if page.get_by_role("button", name="Close").is_enabled():
+        if page.get_by_role("button", name="Close").is_visible():
             page.get_by_role("button", name="Close").click()
         page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").click()
         page.get_by_text("Select an option").click()
