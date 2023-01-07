@@ -40,6 +40,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     APPROVAL_FLOW_TITLE_FOR_MAIL = f'github-test_approval_mail@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
     approval_flow_for_mail_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_MAIL,
+        "approver": TEST_USER,
         "tag": "github",
     }
     approval_flow_for_mail_flow_run = api_request_context.post(TEST_FLOW, data=approval_flow_for_mail_data)

@@ -49,6 +49,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     APPROVAL_FLOW_TITLE_FOR_PORTAL = f'k8s-test_approval_portal@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
     approval_flow_for_portal_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_PORTAL,
+        "approver": TEST_USER,
         "tag": "k8s",
     }
     approval_flow_for_portal_flow_run = api_request_context.post(TEST_FLOW, data=approval_flow_for_portal_data)
@@ -60,6 +61,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     APPROVAL_FLOW_TITLE_FOR_MAIL = f'k8s-test_approval_mail@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
     approval_flow_for_mail_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_MAIL,
+        "approver": TEST_USER,
         "tag": "k8s",
     }
     approval_flow_for_mail_flow_run = api_request_context.post(TEST_FLOW, data=approval_flow_for_mail_data)
@@ -71,6 +73,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     APPROVAL_FLOW_TITLE_FOR_TEAMS = f'k8s-test_approval_teams@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
     approval_flow_for_teams_data = {
         "title": APPROVAL_FLOW_TITLE_FOR_TEAMS,
+        "approver": TEST_USER,
         "tag": "k8s",
     }
     approval_flow_for_teams_flow_run = api_request_context.post(TEST_FLOW, data=approval_flow_for_teams_data)
