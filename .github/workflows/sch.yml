@@ -132,3 +132,41 @@ jobs:
             ./popup_${{matrix.client}}.png
           if-no-files-found: ignore
           retention-days: 1
+  Korea:
+    runs-on: ubuntu-latest
+    environment: KOREA
+    env:
+      TEST_USER: ${{secrets.TEST_USER}}
+      TEST_PWD: ${{secrets.TEST_PWD}}
+      TEST_FLOW: ${{secrets.TEST_FLOW}}
+      TEST_FLOW_ENV: ${{secrets.TEST_FLOW_ENV}}
+      TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
+    strategy:
+      matrix:
+        client: [ portal, teams, mail ]
+      fail-fast: false
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install chromium
+      - name: Test with pytest
+        run: |
+          pytest test_flow_approval_${{matrix.client}}.py
+      - name: Upload trace
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: Korea_trace_${{matrix.client}}
+          path: |
+            ./${{matrix.client}}.png
+            ./popup_${{matrix.client}}.png
+          if-no-files-found: ignore
+          retention-days: 1
