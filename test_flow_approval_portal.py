@@ -75,7 +75,7 @@ def test_approval_portal(context: BrowserContext):
         expect(locator).to_contain_text("Respond: Approve")
         logging.info("Approved from portal!")
 
-    except TimeoutError as e:
+    except (TimeoutError, AssertionError) as e:
         page.screenshot(path="portal.png")
         logging.error(e)
         exit(1)
