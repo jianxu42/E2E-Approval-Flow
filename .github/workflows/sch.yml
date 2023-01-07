@@ -20,6 +20,7 @@ env:
 jobs:
   Asia:
     runs-on: ubuntu-latest
+    environment: ASIA
     env:
       TEST_USER: ${{secrets.TEST_USER_ASIA}}
       TEST_PWD: ${{secrets.TEST_PWD_ASIA}}
