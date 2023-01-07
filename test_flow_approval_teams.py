@@ -52,6 +52,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 
 def test_approval_teams(context: BrowserContext):
     page = context.new_page()
+    page.set_default_timeout(timeout=random.randrange(40000, 50000))
     try:
         page.goto(TEST_APPROVAL_TEAMS)
 
@@ -64,7 +65,6 @@ def test_approval_teams(context: BrowserContext):
         page.get_by_role("button", name="Yes").click()
         logging.info("Login Teams successful!")
 
-        page.wait_for_timeout(random.randrange(3000, 8000))
         approval_tab_view = page.frame_locator("internal:attr=[title=\"Approvals Tab View\"i]")
         if approval_tab_view.get_by_role("menuitem", name="Export").is_enabled():
             approval_tab_view.get_by_role("menuitem", name="Export").click()
