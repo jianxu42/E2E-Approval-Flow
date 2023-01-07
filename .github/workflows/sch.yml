@@ -51,8 +51,7 @@ jobs:
         with:
           name: Asia_trace_${{matrix.client}}
           path: |
-            ./${{matrix.client}}.png
-            ./popup_${{matrix.client}}.png
+            ./*${{matrix.client}}*.png
           if-no-files-found: ignore
           retention-days: 1
   Europe:
@@ -91,8 +90,7 @@ jobs:
         with:
           name: Europe_trace_${{matrix.client}}
           path: |
-            ./${{matrix.client}}.png
-            ./popup_${{matrix.client}}.png
+            ./*${{matrix.client}}*.png
           if-no-files-found: ignore
           retention-days: 1
   US:
@@ -131,8 +129,7 @@ jobs:
         with:
           name: US_trace_${{matrix.client}}
           path: |
-            ./${{matrix.client}}.png
-            ./popup_${{matrix.client}}.png
+            ./*${{matrix.client}}*.png
           if-no-files-found: ignore
           retention-days: 1
   Korea:
@@ -171,7 +168,6 @@ jobs:
         with:
           name: Korea_trace_${{matrix.client}}
           path: |
-            ./${{matrix.client}}.png
-            ./popup_${{matrix.client}}.png
+            ./*${{matrix.client}}*.png
           if-no-files-found: ignore
           retention-days: 1
