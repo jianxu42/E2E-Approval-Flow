@@ -46,7 +46,7 @@ jobs:
         run: |
           pytest test_flow_approval_${{matrix.client}}.py
       - name: Upload trace
-        #        if: failure()
+        if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: Asia_trace_${{matrix.client}}
@@ -85,7 +85,7 @@ jobs:
         run: |
           pytest test_flow_approval_${{matrix.client}}.py
       - name: Upload trace
-        #        if: failure()
+        if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: Europe_trace_${{matrix.client}}
@@ -124,7 +124,7 @@ jobs:
         run: |
           pytest test_flow_approval_${{matrix.client}}.py
       - name: Upload trace
-        #        if: failure()
+        if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: US_trace_${{matrix.client}}
@@ -163,7 +163,7 @@ jobs:
         run: |
           pytest test_flow_approval_${{matrix.client}}.py
       - name: Upload trace
-        #        if: failure()
+        if: failure()
         uses: actions/upload-artifact@v3
         with:
           name: Korea_trace_${{matrix.client}}
