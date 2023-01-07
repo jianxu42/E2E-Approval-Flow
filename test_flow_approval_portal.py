@@ -64,6 +64,7 @@ def test_approval_portal(context: BrowserContext):
         logging.info("Login portal successful!")
 
         if not page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").is_visible():
+            page.wait_for_timeout(random.randrange(1000, 3000))
             page.reload()
             logging.warning("Reloaded the approval portal page!")
             if page.get_by_role("button", name="Close").is_visible():
