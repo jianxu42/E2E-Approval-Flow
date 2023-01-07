@@ -73,7 +73,7 @@ def test_approval_portal(context: BrowserContext):
         page.get_by_role("button", name="Confirm").click()
 
         locator = page.locator("'Respond: Approve'")
-        expect(locator).to_contain_text("Respond: Approve", timeout=1000)
+        expect(locator).to_contain_text("Respond: Approve", timeout=30000)
         logging.info("Approved from portal!")
 
     except (TimeoutError, AssertionError) as e:
