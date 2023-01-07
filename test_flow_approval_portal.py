@@ -1,6 +1,8 @@
 import datetime as dt
 import logging
 import os
+import random
+import time
 from datetime import datetime as dt_dt
 from typing import Generator
 
@@ -49,6 +51,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 
 
 def test_approval_portal(context: BrowserContext):
+    time.sleep(random.randrange(1000, 3000))
     page = context.new_page()
     try:
         page.goto(TEST_APPROVAL_PORTAL)
