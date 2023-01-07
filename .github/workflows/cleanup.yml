@@ -1,0 +1,95 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+
+name: Cleanup Task
+on:
+  workflow_dispatch:
+jobs:
+  Asia:
+    runs-on: ubuntu-latest
+    environment: ASIA
+    env:
+      TEST_USER: ${{secrets.TEST_USER}}
+      TEST_PWD: ${{secrets.TEST_PWD}}
+      TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install chromium
+      - name: Cleanup with pytest
+        run: |
+          pytest cleanup_flow_approval.py
+  Korea:
+    runs-on: ubuntu-latest
+    environment: KOREA
+    env:
+      TEST_USER: ${{secrets.TEST_USER}}
+      TEST_PWD: ${{secrets.TEST_PWD}}
+      TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install chromium
+      - name: Cleanup with pytest
+        run: |
+          pytest cleanup_flow_approval.py
+  Europe:
+    runs-on: ubuntu-latest
+    environment: EUROPE
+    env:
+      TEST_USER: ${{secrets.TEST_USER}}
+      TEST_PWD: ${{secrets.TEST_PWD}}
+      TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install chromium
+      - name: Cleanup with pytest
+        run: |
+          pytest cleanup_flow_approval.py
+  US:
+    runs-on: ubuntu-latest
+    environment: US
+    env:
+      TEST_USER: ${{secrets.TEST_USER}}
+      TEST_PWD: ${{secrets.TEST_PWD}}
+      TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install chromium
+      - name: Cleanup with pytest
+        run: |
+          pytest cleanup_flow_approval.py
