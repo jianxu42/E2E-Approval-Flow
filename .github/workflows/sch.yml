@@ -57,12 +57,13 @@ jobs:
           retention-days: 1
   Europe:
     runs-on: ubuntu-latest
+    environment: EUROPE
     env:
-      TEST_USER: ${{secrets.TEST_USER_EUROPE}}
-      TEST_PWD: ${{secrets.TEST_PWD_EUROPE}}
-      TEST_FLOW: ${{secrets.TEST_FLOW_EUROPE}}
-      TEST_FLOW_ENV: ${{secrets.TEST_FLOW_ENV_EUROPE}}
-      TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL_EUROPE}}
+      TEST_USER: ${{EUROPE.secrets.TEST_USER_EUROPE}}
+      TEST_PWD: ${{EUROPE.secrets.TEST_PWD_EUROPE}}
+      TEST_FLOW: ${{EUROPE.secrets.TEST_FLOW_EUROPE}}
+      TEST_FLOW_ENV: ${{EUROPE.secrets.TEST_FLOW_ENV_EUROPE}}
+      TEST_APPROVAL_PORTAL: ${{EUROPE.secrets.TEST_APPROVAL_PORTAL_EUROPE}}
     strategy:
       matrix:
         client: [ portal, teams, mail ]
