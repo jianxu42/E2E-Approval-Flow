@@ -7,7 +7,8 @@ from datetime import datetime as dt_dt
 from typing import Generator
 
 import pytest
-from playwright.async_api import expect, Playwright, APIRequestContext, BrowserContext, TimeoutError
+from playwright.async_api import expect, BrowserContext, TimeoutError
+from playwright.sync_api import Playwright, APIRequestContext
 
 APPROVAL_FLOW_TITLE_FOR_PORTAL = ''
 PORTAL_FLOW_LOCATION = ''
@@ -18,25 +19,24 @@ TEST_APPROVAL_PORTAL = os.environ['TEST_APPROVAL_PORTAL']
 
 
 @pytest.fixture(scope="session")
-async def api_request_context(
+def api_request_context(
         playwright: Playwright,
 ) -> Generator[APIRequestContext, None, None]:
     headers = {
         "Accept": "application/json",
     }
-    request_context = await playwright.request.new_context(
+    request_context = playwright.request.new_context(
         base_url="https://make.powerautomate.com",
         extra_http_headers=headers
     )
     yield request_context
-    portal_flow_run = await request_context.get(PORTAL_FLOW_LOCATION).json()
+    portal_flow_run = request_context.get(PORTAL_FLOW_LOCATION).json()
     if str(portal_flow_run).find("outcome") != -1:
         assert portal_flow_run["outcome"] == "Approve"
-    await request_context.dispose()
+    request_context.dispose()
 
 
-@pytest.mark.asyncio
-async def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
+def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global APPROVAL_FLOW_TITLE_FOR_PORTAL
     APPROVAL_FLOW_TITLE_FOR_PORTAL = f'github-test_approval_portal@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
     approval_flow_for_portal_data = {
@@ -44,7 +44,7 @@ async def test_trigger_approval_flow(api_request_context: APIRequestContext) -> 
         "approver": TEST_USER,
         "tag": "github",
     }
-    approval_flow_for_portal_flow_run = await api_request_context.post(TEST_FLOW, data=approval_flow_for_portal_data)
+    approval_flow_for_portal_flow_run = api_request_context.post(TEST_FLOW, data=approval_flow_for_portal_data)
     global PORTAL_FLOW_LOCATION
     PORTAL_FLOW_LOCATION = approval_flow_for_portal_flow_run.headers["location"]
     assert approval_flow_for_portal_flow_run.ok
