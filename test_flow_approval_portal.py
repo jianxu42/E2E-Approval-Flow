@@ -53,7 +53,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 def test_approval_portal(context: BrowserContext):
     time.sleep(random.randrange(1, 3))
     page = context.new_page()
-    page.set_default_timeout(timeout=random.randrange(40000, 50000))
+    page.set_default_timeout(timeout=60000)
     try:
         page.goto(TEST_APPROVAL_PORTAL)
 

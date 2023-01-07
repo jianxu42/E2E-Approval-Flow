@@ -1,7 +1,6 @@
 import datetime as dt
 import logging
 import os
-import random
 from datetime import datetime as dt_dt
 from typing import Generator
 
@@ -53,7 +52,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 def test_approval_mail(context: BrowserContext):
     global mail_popup_page
     page = context.new_page()
-    page.set_default_timeout(timeout=random.randrange(40000, 50000))
+    page.set_default_timeout(60000)
     try:
         page.goto(TEST_APPROVAL_MAIL)
 
@@ -72,7 +71,7 @@ def test_approval_mail(context: BrowserContext):
         with page.expect_popup() as page_info:
             page.get_by_role("menuitem", name="Open in new window").click()
         mail_popup_page = page_info.value
-        mail_popup_page.set_default_timeout(timeout=random.randrange(40000, 50000))
+        mail_popup_page.set_default_timeout(timeout=60000)
         mail_popup_page.get_by_role("button", name="Approve").click()
         mail_popup_page.get_by_role("button", name="Submit").click()
 

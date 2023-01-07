@@ -1,7 +1,6 @@
 import datetime as dt
 import logging
 import os
-import random
 from datetime import datetime as dt_dt
 from typing import Generator
 
@@ -86,6 +85,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 
 def test_approval_portal(context: BrowserContext):
     page = context.new_page()
+    page.set_default_timeout(timeout=60000)
     page.goto(TEST_APPROVAL_PORTAL)
 
     page.get_by_placeholder("Email, phone, or Skype").click()
@@ -104,15 +104,15 @@ def test_approval_portal(context: BrowserContext):
     page.get_by_role("option", name="Approve").click()
     page.get_by_role("button", name="Confirm").click()
 
-    page.wait_for_timeout(3000)
     locator = page.locator("'Respond: Approve'")
-    expect(locator).to_contain_text("Respond: Approve")
+    expect(locator).to_contain_text("Respond: Approve", timeout=30000)
     logging.info("Approved from portal!")
 
 
 def test_approval_mail(context: BrowserContext):
     page = context.new_page()
     page.goto(TEST_APPROVAL_MAIL)
+    page.set_default_timeout(timeout=60000)
 
     page.get_by_placeholder("Email, phone, or Skype").click()
     page.get_by_placeholder("Email, phone, or Skype").fill(TEST_USER)
@@ -123,25 +123,24 @@ def test_approval_mail(context: BrowserContext):
     page.get_by_role("button", name="Yes").click()
     logging.info("Login mail successful!")
 
-    page.wait_for_timeout(random.randrange(3000, 6000))
     page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
-    page.wait_for_timeout(random.randrange(6000, 12000))
     page.get_by_role("menuitem", name="More mail actions").click()
     page.get_by_role("menuitem", name="View").filter(has_text="View").click()
     with page.expect_popup() as page_info:
         page.get_by_role("menuitem", name="Open in new window").click()
     popup_page = page_info.value
+    popup_page.set_default_timeout(timeout=60000)
     popup_page.get_by_role("button", name="Approve").click()
     popup_page.get_by_role("button", name="Submit").click()
-    popup_page.wait_for_timeout(random.randrange(6000, 9000))
 
     locator = popup_page.locator("'Approved'")
-    expect(locator).to_contain_text("Approved")
+    expect(locator).to_contain_text("Approved", timeout=30000)
     logging.info("Approved from mail!")
 
 
 def test_approval_teams(context: BrowserContext):
     page = context.new_page()
+    page.set_default_timeout(timeout=60000)
     page.goto(TEST_APPROVAL_TEAMS)
 
     page.get_by_placeholder("Email, phone, or Skype").click()
@@ -153,7 +152,6 @@ def test_approval_teams(context: BrowserContext):
     page.get_by_role("button", name="Yes").click()
     logging.info("Login Teams successful!")
 
-    page.wait_for_timeout(8000)
     approval_tab_view = page.frame_locator("internal:attr=[title=\"Approvals Tab View\"i]")
     if approval_tab_view.get_by_role("menuitem", name="Export").is_enabled():
         approval_tab_view.get_by_role("menuitem", name="Export").click()
@@ -166,5 +164,5 @@ def test_approval_teams(context: BrowserContext):
 
     approval_tab_view.get_by_role("gridcell", name=APPROVAL_FLOW_TITLE_FOR_TEAMS).click()
     locator = approval_tab_view.locator("'Final status: Approved'")
-    expect(locator).to_contain_text("Final status: Approved")
+    expect(locator).to_contain_text("Final status: Approved", timeout=30000)
     logging.info("Approved from teams!")
