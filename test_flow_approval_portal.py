@@ -17,7 +17,6 @@ TEST_FLOW = os.environ['TEST_FLOW']
 TEST_APPROVAL_PORTAL = os.environ['TEST_APPROVAL_PORTAL']
 
 
-@pytest.mark.asyncio
 @pytest.fixture(scope="session")
 async def api_request_context(
         playwright: Playwright,
