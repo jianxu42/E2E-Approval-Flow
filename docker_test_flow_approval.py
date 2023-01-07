@@ -111,8 +111,8 @@ def test_approval_portal(context: BrowserContext):
 
 def test_approval_mail(context: BrowserContext):
     page = context.new_page()
-    page.goto(TEST_APPROVAL_MAIL)
     page.set_default_timeout(timeout=60000)
+    page.goto(TEST_APPROVAL_MAIL)
 
     page.get_by_placeholder("Email, phone, or Skype").click()
     page.get_by_placeholder("Email, phone, or Skype").fill(TEST_USER)
