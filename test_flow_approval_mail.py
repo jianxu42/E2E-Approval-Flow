@@ -72,8 +72,6 @@ def test_approval_mail(context: BrowserContext):
             page.get_by_role("menuitem", name="Open in new window").click()
         mail_popup_page = page_info.value
         mail_popup_page.set_default_timeout(timeout=120000)
-        if not mail_popup_page.get_by_role("button", name="Approve").is_visible():
-            mail_popup_page.reload()
         mail_popup_page.get_by_role("button", name="Approve").click()
         mail_popup_page.get_by_role("button", name="Submit").click()
 
