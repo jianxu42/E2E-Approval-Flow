@@ -79,7 +79,7 @@ def test_approval_mail(context: BrowserContext) -> None:
                 break
         page_popup.get_by_role("button", name="Approve").click()
         page_popup.get_by_role("button", name="Submit").click()
-        page_popup.wait_for_load_state()
+        page_popup.wait_for_load_state("networkidle")
         expect(page_popup.locator("'Approved'")).to_be_visible()
         logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_MAIL} from mail!")
 
