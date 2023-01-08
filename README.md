@@ -31,3 +31,5 @@ graph LR
 - [Docker](https://www.docker.com/)
 - [Foresight](https://www.runforesight.com/)
 - [Synthetic Monitoring Tests](https://microsoft.github.io/code-with-engineering-playbook/automated-testing/synthetic-monitoring-tests/)
+
+[![Synthetic Tests](https://github.com/jianxu42/E2E-Approval-Flow/actions/workflows/sch.yml/badge.svg?branch=main)](https://github.com/jianxu42/E2E-Approval-Flow/actions/workflows/sch.yml)
