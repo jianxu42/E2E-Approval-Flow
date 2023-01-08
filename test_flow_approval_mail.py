@@ -13,7 +13,6 @@ TEST_USER = os.environ['TEST_USER']
 TEST_PWD = os.environ['TEST_PWD']
 TEST_FLOW = os.environ['TEST_FLOW']
 TEST_APPROVAL_MAIL = os.environ['TEST_APPROVAL_MAIL']
-mail_popup_page = None
 
 
 @pytest.fixture(scope="session")
@@ -50,7 +49,6 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 
 
 def test_approval_mail(context: BrowserContext):
-    global mail_popup_page
     page = context.new_page()
     page.set_default_timeout(60000)
     try:
@@ -65,27 +63,21 @@ def test_approval_mail(context: BrowserContext):
         page.get_by_role("button", name="Yes").click()
         logging.info("Login mail successful!")
 
-        page.wait_for_load_state()
+        page.wait_for_load_state("networkidle")
         page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
-        page.get_by_role("menuitem", name="More mail actions").click()
-        page.get_by_role("menuitem", name="View").filter(has_text="View").click()
-        with page.expect_popup() as popup_page:
-            page.get_by_role("menuitem", name="Open in new window").click()
-        mail_popup_page = popup_page.value
-        mail_popup_page.set_default_timeout(timeout=120000)
 
-        if not mail_popup_page.get_by_role("button", name="Approve").is_visible():
-            mail_popup_page.reload()
-            mail_popup_page.wait_for_load_state("networkidle")
-        mail_popup_page.get_by_role("button", name="Approve").click()
-        mail_popup_page.get_by_role("button", name="Submit").click()
+        if not page.get_by_role("button", name="Approve").is_visible():
+            page.reload()
+            page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
+            page.wait_for_load_state("networkidle")
+        page.get_by_role("button", name="Approve").click()
+        page.get_by_role("button", name="Submit").click()
 
-        locator = mail_popup_page.locator("'Approved'")
+        locator = page.locator("'Approved'")
         expect(locator).to_contain_text("Approved", timeout=30000)
         logging.info("Approved from mail!")
 
     except (TimeoutError, AssertionError) as e:
         page.screenshot(path="mail_error.png")
-        mail_popup_page.screenshot(path="popup_mail_error.png")
         logging.error(e)
         exit(1)
