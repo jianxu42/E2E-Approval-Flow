@@ -1,10 +1,9 @@
 import logging
 import os
-import re
 
 from playwright.sync_api import expect, BrowserContext
 
-APPROVAL_FLOW_TITLE = '-test_approval'
+APPROVAL_FLOW_TITLE = 'test_approval'
 TEST_USER = os.environ['TEST_USER']
 TEST_PWD = os.environ['TEST_PWD']
 TEST_APPROVAL_PORTAL = os.environ['TEST_APPROVAL_PORTAL']
@@ -25,7 +24,7 @@ def test_cleanup_approval_flow(context: BrowserContext):
     page.wait_for_load_state()
     if page.get_by_role("button", name="Close").is_visible():
         page.get_by_role("button", name="Close").click()
-    for li in page.get_by_role("button", name=re.compile(APPROVAL_FLOW_TITLE)).all():
+    for li in page.locator(f"text={APPROVAL_FLOW_TITLE}").all():
         li.click()
         page.get_by_text("Select an option").click()
         page.get_by_role("option", name="Approve").click()
