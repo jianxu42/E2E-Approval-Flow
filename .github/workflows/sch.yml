@@ -17,7 +17,7 @@ on:
 jobs:
   Asia:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 5
     environment: ASIA
     env:
       TEST_USER: ${{secrets.TEST_USER}}
@@ -57,7 +57,7 @@ jobs:
           retention-days: 1
   Korea:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 5
     environment: KOREA
     env:
       TEST_USER: ${{secrets.TEST_USER}}
@@ -97,7 +97,7 @@ jobs:
           retention-days: 1
   Europe:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 5
     environment: EUROPE
     env:
       TEST_USER: ${{secrets.TEST_USER}}
@@ -137,7 +137,7 @@ jobs:
           retention-days: 1
   US:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 5
     environment: US
     env:
       TEST_USER: ${{secrets.TEST_USER}}
