@@ -3,7 +3,7 @@ import os
 
 from playwright.sync_api import expect, BrowserContext
 
-APPROVAL_FLOW_TITLE = 'github-test_approval'
+APPROVAL_FLOW_TITLE = 'github-test_approval_portal@2023-01-07 13:23:08:649'
 TEST_USER = os.environ['TEST_USER']
 TEST_PWD = os.environ['TEST_PWD']
 TEST_APPROVAL_PORTAL = os.environ['TEST_APPROVAL_PORTAL']
