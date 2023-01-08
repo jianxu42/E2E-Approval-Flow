@@ -72,6 +72,7 @@ def test_approval_portal(context: BrowserContext) -> None:
         page.get_by_text("Select an option").click()
         page.get_by_role("option", name="Approve").click()
         page.get_by_role("button", name="Confirm").click()
+        page.wait_for_load_state()
         expect(page.locator("'Response successfully recorded'")).to_be_visible()
         logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_PORTAL} from portal!")
 

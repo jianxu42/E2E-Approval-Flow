@@ -109,6 +109,7 @@ def test_approval_portal(context: BrowserContext):
     page.get_by_text("Select an option").click()
     page.get_by_role("option", name="Approve").click()
     page.get_by_role("button", name="Confirm").click()
+    page.wait_for_load_state()
     expect(page.locator("'Response successfully recorded'")).to_be_visible()
     logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_PORTAL} from portal!")
 
@@ -142,7 +143,7 @@ def test_approval_mail(context: BrowserContext):
         page_popup = popup.value
         page_popup.get_by_role("button", name="Approve").click()
     page_popup.get_by_role("button", name="Submit").click()
-
+    page_popup.wait_for_load_state()
     expect(page_popup.locator("'Approved'")).to_be_visible()
     logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_MAIL} from mail!")
 
@@ -170,7 +171,6 @@ def test_approval_teams(context: BrowserContext):
     approval_tab_view.get_by_role("gridcell", name=APPROVAL_FLOW_TITLE_FOR_TEAMS).click()
     approval_tab_view.get_by_role("button", name="Approve").click()
     page.get_by_role("button", name="Approvals Toolbar").click()
-
     approval_tab_view.get_by_role("gridcell", name=APPROVAL_FLOW_TITLE_FOR_TEAMS).click()
     expect(approval_tab_view.locator("'Final status: Approved'")).to_be_visible()
     logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_TEAMS} from Teams!")

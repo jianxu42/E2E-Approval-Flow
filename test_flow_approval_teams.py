@@ -73,7 +73,6 @@ def test_approval_teams(context: BrowserContext) -> None:
         approval_tab_view.get_by_role("gridcell", name=APPROVAL_FLOW_TITLE_FOR_TEAMS).click()
         approval_tab_view.get_by_role("button", name="Approve").click()
         page.get_by_role("button", name="Approvals Toolbar").click()
-
         approval_tab_view.get_by_role("gridcell", name=APPROVAL_FLOW_TITLE_FOR_TEAMS).click()
         expect(approval_tab_view.locator("'Final status: Approved'")).to_be_visible()
         logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_TEAMS} from Teams!")
