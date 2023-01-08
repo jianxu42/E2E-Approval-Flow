@@ -47,7 +47,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global MAIL_FLOW_LOCATION
     MAIL_FLOW_LOCATION = approval_flow_for_mail_flow_run.headers["location"]
     assert approval_flow_for_mail_flow_run.ok
-    logging.info("The approval flow for mail was triggered!")
+    logging.info(f"The approval flow {APPROVAL_FLOW_TITLE_FOR_MAIL} for mail was triggered!")
 
 
 def test_approval_mail(context: BrowserContext) -> None:
