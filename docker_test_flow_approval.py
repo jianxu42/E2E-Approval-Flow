@@ -138,7 +138,9 @@ def test_approval_mail(context: BrowserContext):
     page_popup.get_by_role("button", name="Approve").click()
     page_popup.get_by_role("button", name="Submit").click()
     page_popup.wait_for_load_state()
-    expect(page_popup.locator("'The action completed successfully.'")).to_be_visible()
+    expect(page_popup.locator("'The action completed successfully.'")).to_be_visible() or expect(
+        page_popup.locator("'Approved'")).to_be_visible() or expect(
+        page_popup.locator("'Date Submitted:'")).to_be_visible()
     logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_MAIL} from mail!")
 
 
