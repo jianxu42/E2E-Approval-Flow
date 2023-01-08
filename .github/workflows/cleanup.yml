@@ -9,6 +9,7 @@ on:
 jobs:
   Asia:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment: ASIA
     env:
       TEST_USER: ${{secrets.TEST_USER}}
@@ -31,6 +32,7 @@ jobs:
           pytest cleanup_flow_approval.py
   Korea:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment: KOREA
     env:
       TEST_USER: ${{secrets.TEST_USER}}
@@ -53,6 +55,7 @@ jobs:
           pytest cleanup_flow_approval.py
   Europe:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment: EUROPE
     env:
       TEST_USER: ${{secrets.TEST_USER}}
@@ -75,6 +78,7 @@ jobs:
           pytest cleanup_flow_approval.py
   US:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     environment: US
     env:
       TEST_USER: ${{secrets.TEST_USER}}
