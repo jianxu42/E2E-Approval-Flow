@@ -1,7 +1,6 @@
 import datetime as dt
 import logging
 import os
-import time
 from datetime import datetime as dt_dt
 from typing import Generator
 
@@ -67,8 +66,6 @@ def test_approval_mail(context: BrowserContext) -> None:
 
         page.wait_for_load_state()
         page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
-        # We have set the render time for the adaptive card from the server to be 10 seconds for now, but this may change depending on various factors.
-        time.sleep(10)
         with page.expect_popup() as popup:
             page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.dblclick()
         page_popup = popup.value
