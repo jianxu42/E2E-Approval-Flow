@@ -72,9 +72,9 @@ def test_approval_portal(context: BrowserContext) -> None:
         page.get_by_text("Select an option").click()
         page.get_by_role("option", name="Approve").click()
         page.get_by_role("button", name="Confirm").click()
-
-        locator = page.locator("'Respond: Approve'")
-        expect(locator).to_contain_text("Respond: Approve", timeout=30000)
+        locator = page.locator("'Response successfully recorded'")
+        expect(locator).to_contain_text("Response successfully recorded")
+        page.get_by_role("button", name="Done").click()
         logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_PORTAL} from portal!")
 
     except (TimeoutError, AssertionError) as e:
