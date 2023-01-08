@@ -32,7 +32,7 @@ def test_cleanup_approval_flow(context: BrowserContext):
                 page.get_by_role("option", name="Approve").click()
                 page.get_by_role("button", name="Confirm").click()
                 page.get_by_role("button", name="Done").click()
-                logging.info(f"Cleanup {li}!")
+                logging.info(f"Cleanup {li.text_content()}!")
                 break
         else:
             break
