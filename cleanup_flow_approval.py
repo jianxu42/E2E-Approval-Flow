@@ -25,7 +25,7 @@ def test_cleanup_approval_flow(context: BrowserContext):
     page.wait_for_load_state()
     if page.get_by_role("button", name="Close").is_visible():
         page.get_by_role("button", name="Close").click()
-    for i in page.get_by_role("button", name=re.compile(f'/{APPROVAL_FLOW_TITLE}/')).all():
+    for i in page.get_by_role("button", name=re.compile(APPROVAL_FLOW_TITLE)).all():
         i.click()
         page.get_by_text("Select an option").click()
         page.get_by_role("option", name="Approve").click()
