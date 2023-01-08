@@ -71,6 +71,14 @@ jobs:
       - name: Cleanup with pytest
         run: |
           pytest cleanup_flow_approval.py
+      - name: Upload trace
+        uses: actions/upload-artifact@v3
+        with:
+          name: Europe_trace_cleanup
+          path: |
+            ./*.png
+          if-no-files-found: ignore
+          retention-days: 1
   US:
     runs-on: ubuntu-latest
     environment: US

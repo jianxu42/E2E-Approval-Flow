@@ -24,6 +24,7 @@ def test_cleanup_approval_flow(context: BrowserContext):
     page.wait_for_load_state()
     if page.get_by_role("button", name="Close").is_visible():
         page.get_by_role("button", name="Close").click()
+    page.screenshot(path="before.png")
     for li in page.locator("'test_approval'").all():
         li.click()
         page.get_by_text("Select an option").click()
@@ -32,3 +33,4 @@ def test_cleanup_approval_flow(context: BrowserContext):
         locator = page.locator("'Respond: Approve'")
         expect(locator).to_contain_text("Respond: Approve", timeout=30000)
         logging.info(f"Cleanup {li}!")
+    page.screenshot(path="after.png")
