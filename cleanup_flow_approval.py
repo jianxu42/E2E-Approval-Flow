@@ -1,7 +1,6 @@
 import logging
 import os
 
-import pytest
 from playwright.sync_api import BrowserContext
 
 APPROVAL_FLOW_TITLE = 'test_approval'
@@ -10,8 +9,7 @@ TEST_PWD = os.environ['TEST_PWD']
 TEST_APPROVAL_PORTAL = os.environ['TEST_APPROVAL_PORTAL']
 
 
-@pytest.mark.asyncio
-async def test_cleanup_approval_flow(context: BrowserContext):
+def test_cleanup_approval_flow(context: BrowserContext):
     page = context.new_page()
     page.goto(TEST_APPROVAL_PORTAL)
     page.get_by_placeholder("Email, phone, or Skype").click()
