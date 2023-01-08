@@ -26,11 +26,12 @@ def test_cleanup_approval_flow(context: BrowserContext):
     while True:
         if len(page.get_by_role("button", name=APPROVAL_FLOW_TITLE).all()) > 0:
             li = page.get_by_role("button", name=APPROVAL_FLOW_TITLE).first
+            title = li.text_content()
             li.click()
             page.get_by_text("Select an option").click()
             page.get_by_role("option", name="Approve").click()
             page.get_by_role("button", name="Confirm").click()
             page.get_by_role("button", name="Done").click()
-            logging.info(f"Cleanup {li.text_content()}!")
+            logging.info(f"Cleanup {title}!")
         else:
             break
