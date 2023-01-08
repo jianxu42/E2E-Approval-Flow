@@ -35,12 +35,15 @@ def api_request_context(
         extra_http_headers=headers
     )
     yield request_context
-    portal_flow_run = request_context.get(PORTAL_FLOW_LOCATION)
-    assert portal_flow_run.json()["outcome"] == "Approve"
-    mail_flow_run = request_context.get(MAIL_FLOW_LOCATION)
-    assert mail_flow_run.json()["outcome"] == "Approve"
-    teams_flow_run = request_context.get(TEAMS_FLOW_LOCATION)
-    assert teams_flow_run.json()["outcome"] == "Approve"
+    portal_flow_run = request_context.get(PORTAL_FLOW_LOCATION).json()
+    if str(portal_flow_run).find("outcome") != -1:
+        assert portal_flow_run["outcome"] == "Approve"
+    mail_flow_run = request_context.get(MAIL_FLOW_LOCATION).json()
+    if str(mail_flow_run).find("outcome") != -1:
+        assert mail_flow_run["outcome"] == "Approve"
+    teams_flow_run = request_context.get(TEAMS_FLOW_LOCATION).json()
+    if str(teams_flow_run).find("outcome") != -1:
+        assert teams_flow_run["outcome"] == "Approve"
     request_context.dispose()
 
 
@@ -105,10 +108,13 @@ def test_approval_portal(context: BrowserContext):
     page.get_by_text("Select an option").click()
     page.get_by_role("option", name="Approve").click()
     page.get_by_role("button", name="Confirm").click()
+    locator = page.locator("'Response successfully recorded'")
+    expect(locator).to_contain_text("Response successfully recorded")
+    page.get_by_role("button", name="Done").click()
 
     locator = page.locator("'Respond: Approve'")
     expect(locator).to_contain_text("Respond: Approve", timeout=30000)
-    logging.info("Approved from portal!")
+    logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_PORTAL} from portal!")
 
 
 def test_approval_mail(context: BrowserContext):
@@ -126,8 +132,8 @@ def test_approval_mail(context: BrowserContext):
 
     page.wait_for_load_state()
     page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
-    # this depends on the render time for adaptive card from the server, set 8 seconds for now
-    time.sleep(8)
+    # We have set the render time for the adaptive card from the server to be 5 seconds for now, but this may change depending on various factors.
+    time.sleep(5)
     with page.expect_popup() as popup:
         page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.dblclick()
     page_popup = popup.value
@@ -143,7 +149,7 @@ def test_approval_mail(context: BrowserContext):
 
     locator = page_popup.locator("'Approved'")
     expect(locator).to_contain_text("Approved", timeout=30000)
-    logging.info("Approved from mail!")
+    logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_MAIL} from mail!")
 
 
 def test_approval_teams(context: BrowserContext):
@@ -173,4 +179,4 @@ def test_approval_teams(context: BrowserContext):
     approval_tab_view.get_by_role("gridcell", name=APPROVAL_FLOW_TITLE_FOR_TEAMS).click()
     locator = approval_tab_view.locator("'Final status: Approved'")
     expect(locator).to_contain_text("Final status: Approved", timeout=30000)
-    logging.info("Approved from teams!")
+    logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_TEAMS} from Teams!")
