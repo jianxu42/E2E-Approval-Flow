@@ -84,7 +84,7 @@ def test_approval_mail(context: BrowserContext) -> None:
 
         locator = page_popup.locator("'Approved'")
         expect(locator).to_contain_text("Approved", timeout=30000)
-        logging.info("Approved from mail!")
+        logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_MAIL} from mail!")
 
     except (TimeoutError, AssertionError) as e:
         page.screenshot(path="mail_page_error.png")
