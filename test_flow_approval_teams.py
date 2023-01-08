@@ -49,7 +49,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     logging.info("The approval flow for Teams was triggered!")
 
 
-def test_approval_teams(context: BrowserContext):
+def test_approval_teams(context: BrowserContext) -> None:
     page = context.new_page()
     page.set_default_timeout(timeout=60000)
     try:

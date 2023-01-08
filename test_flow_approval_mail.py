@@ -1,6 +1,7 @@
 import datetime as dt
 import logging
 import os
+import time
 from datetime import datetime as dt_dt
 from typing import Generator
 
@@ -13,6 +14,7 @@ TEST_USER = os.environ['TEST_USER']
 TEST_PWD = os.environ['TEST_PWD']
 TEST_FLOW = os.environ['TEST_FLOW']
 TEST_APPROVAL_MAIL = os.environ['TEST_APPROVAL_MAIL']
+page_popup = None
 
 
 @pytest.fixture(scope="session")
@@ -48,7 +50,8 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     logging.info("The approval flow for mail was triggered!")
 
 
-def test_approval_mail(context: BrowserContext):
+def test_approval_mail(context: BrowserContext) -> None:
+    global page_popup
     page = context.new_page()
     try:
         page.goto(TEST_APPROVAL_MAIL)
@@ -64,22 +67,18 @@ def test_approval_mail(context: BrowserContext):
 
         page.wait_for_load_state()
         page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
-
-        if not page.get_by_role("button", name="Approve").is_visible():
-            with page.expect_popup() as approval_portal:
-                page.get_by_role("link", name="Approve").click()
-            page_approval_portal = approval_portal.value
-            page_approval_portal.get_by_role("button", name="Confirm").click()
-            locator = page_approval_portal.locator("'Approved'")
-            expect(locator).to_contain_text("Approved", timeout=30000)
-        else:
-            page.get_by_role("button", name="Approve").click()
-            page.get_by_role("button", name="Submit").click()
-            locator = page.locator("'Approved'")
-            expect(locator).to_contain_text("Approved", timeout=30000)
+        time.sleep(5)
+        with page.expect_popup() as popup:
+            page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.dblclick()
+        page_popup = popup.value
+        page_popup.get_by_role("button", name="Approve").click()
+        page_popup.get_by_role("button", name="Submit").click()
+        locator = page_popup.locator("'Approved'")
+        expect(locator).to_contain_text("Approved", timeout=30000)
         logging.info("Approved from mail!")
 
     except (TimeoutError, AssertionError) as e:
-        page.screenshot(path="mail_error.png")
+        page.screenshot(path="mail_page_error.png")
+        page_popup.screenshot(path="mail_page_popup_error.png")
         logging.error(e)
         exit(1)
