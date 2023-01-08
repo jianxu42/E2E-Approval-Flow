@@ -1,8 +1,10 @@
+import logging
 import os
+import re
 
 from playwright.sync_api import expect, BrowserContext
 
-APPROVAL_FLOW_TITLE = 'github-test_approval_portal@2023-01-07 13:23:08:649'
+APPROVAL_FLOW_TITLE = 'github-test_approval'
 TEST_USER = os.environ['TEST_USER']
 TEST_PWD = os.environ['TEST_PWD']
 TEST_APPROVAL_PORTAL = os.environ['TEST_APPROVAL_PORTAL']
@@ -23,9 +25,11 @@ def test_cleanup_approval_flow(context: BrowserContext):
     page.wait_for_load_state()
     if page.get_by_role("button", name="Close").is_visible():
         page.get_by_role("button", name="Close").click()
-    if page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE}").click()
+    for i in page.get_by_role("button", name=re.compile(f'/{APPROVAL_FLOW_TITLE}/')).all():
+        i.click()
         page.get_by_text("Select an option").click()
         page.get_by_role("option", name="Approve").click()
         page.get_by_role("button", name="Confirm").click()
         locator = page.locator("'Respond: Approve'")
         expect(locator).to_contain_text("Respond: Approve", timeout=30000)
+        logging.info(f"cleanup {i}")
