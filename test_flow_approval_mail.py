@@ -50,7 +50,6 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 
 def test_approval_mail(context: BrowserContext):
     page = context.new_page()
-    page.set_default_timeout(60000)
     try:
         page.goto(TEST_APPROVAL_MAIL)
 
@@ -67,13 +66,17 @@ def test_approval_mail(context: BrowserContext):
         page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
 
         if not page.get_by_role("button", name="Approve").is_visible():
-            page.reload()
-            page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
-        page.get_by_role("button", name="Approve").click()
-        page.get_by_role("button", name="Submit").click()
-
-        locator = page.locator("'Approved'")
-        expect(locator).to_contain_text("Approved", timeout=30000)
+            with page.expect_popup() as approval_portal:
+                page.get_by_role("link", name="Approve").click()
+            page_approval_portal = approval_portal.value
+            page_approval_portal.get_by_role("button", name="Confirm").click()
+            locator = page.locator("'Approved'")
+            expect(locator).to_contain_text("Approved", timeout=30000)
+        else:
+            page.get_by_role("button", name="Approve").click()
+            page.get_by_role("button", name="Submit").click()
+            locator = page.locator("'Approved'")
+            expect(locator).to_contain_text("Approved", timeout=30000)
         logging.info("Approved from mail!")
 
     except (TimeoutError, AssertionError) as e:
