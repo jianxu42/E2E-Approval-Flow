@@ -26,6 +26,7 @@ def test_cleanup_approval_flow(context: BrowserContext):
         if len(page.get_by_role("button", name=APPROVAL_FLOW_TITLE).all()) > 0:
             li = page.get_by_role("button", name=APPROVAL_FLOW_TITLE).first
             title = li.text_content()
+            logging.info(f"Found {title}!")
             li.click()
             page.get_by_text("Select an option").click()
             page.get_by_role("option", name="Approve").click()
