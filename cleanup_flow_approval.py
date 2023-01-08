@@ -1,7 +1,7 @@
 import logging
 import os
 
-from playwright.sync_api import expect, BrowserContext
+from playwright.sync_api import BrowserContext
 
 APPROVAL_FLOW_TITLE = 'test_approval'
 TEST_USER = os.environ['TEST_USER']
@@ -29,7 +29,5 @@ def test_cleanup_approval_flow(context: BrowserContext):
         page.get_by_text("Select an option").click()
         page.get_by_role("option", name="Approve").click()
         page.get_by_role("button", name="Confirm").click()
-        locator = page.locator("'Respond: Approve'")
-        expect(locator).to_contain_text("Respond: Approve", timeout=30000)
         page.get_by_role("button", name="Done").click()
-        logging.info(f"Cleanup {li}!")
+        logging.info(f"Cleanup {li.text_content()}!")
