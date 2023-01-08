@@ -59,6 +59,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global PORTAL_FLOW_LOCATION
     PORTAL_FLOW_LOCATION = approval_flow_for_portal_flow_run.headers["location"]
     assert approval_flow_for_portal_flow_run.ok
+    logging.info(f"The approval flow {APPROVAL_FLOW_TITLE_FOR_PORTAL} was triggered!")
 
     global APPROVAL_FLOW_TITLE_FOR_MAIL
     APPROVAL_FLOW_TITLE_FOR_MAIL = f'k8s-test_approval_mail@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
@@ -71,6 +72,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global MAIL_FLOW_LOCATION
     MAIL_FLOW_LOCATION = approval_flow_for_mail_flow_run.headers["location"]
     assert approval_flow_for_mail_flow_run.ok
+    logging.info(f"The approval flow {APPROVAL_FLOW_TITLE_FOR_MAIL} was triggered!")
 
     global APPROVAL_FLOW_TITLE_FOR_TEAMS
     APPROVAL_FLOW_TITLE_FOR_TEAMS = f'k8s-test_approval_teams@{dt_dt.now(dt.timezone.utc).strftime("%Y-%m-%d %H:%M:%S:%f")}'
@@ -83,8 +85,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     global TEAMS_FLOW_LOCATION
     TEAMS_FLOW_LOCATION = approval_flow_for_teams_flow_run.headers["location"]
     assert approval_flow_for_teams_flow_run.ok
-
-    logging.info("The approval flows were triggered!")
+    logging.info(f"The approval flow {APPROVAL_FLOW_TITLE_FOR_TEAMS} was triggered!")
 
 
 def test_approval_portal(context: BrowserContext):
