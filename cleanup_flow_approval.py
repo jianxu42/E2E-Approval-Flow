@@ -25,13 +25,17 @@ def test_cleanup_approval_flow(context: BrowserContext):
     page.wait_for_load_state("networkidle")
     if page.get_by_role("button", name="Close").is_visible():
         page.get_by_role("button", name="Close").click()
-    target = page.get_by_role("button", name=APPROVAL_FLOW_TITLE).all()
-    logging.info(f"Found {len(target)} items to cleanup!")
-    for li in target:
-        li.click()
-        page.get_by_text("Select an option").click()
-        page.get_by_role("option", name="Approve").click()
-        page.get_by_role("button", name="Confirm").click()
-        page.get_by_role("button", name="Done").click()
-        logging.info(f"Cleanup {li.text_content()}!")
+    while True:
+        target = page.get_by_role("button", name=APPROVAL_FLOW_TITLE).all()
+        logging.info(f"Found {len(target)} items to cleanup!")
+        if len(target) > 0:
+            for li in target:
+                li.click()
+                page.get_by_text("Select an option").click()
+                page.get_by_role("option", name="Approve").click()
+                page.get_by_role("button", name="Confirm").click()
+                page.get_by_role("button", name="Done").click()
+                logging.info(f"Cleanup {li.text_content()}!")
+        else:
+            break
         time.sleep(1)
