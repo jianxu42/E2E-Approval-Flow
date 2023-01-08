@@ -25,15 +25,15 @@ async def test_cleanup_approval_flow(context: BrowserContext):
     await page.wait_for_load_state("networkidle")
     if await page.get_by_role("button", name="Close").is_visible():
         await page.get_by_role("button", name="Close").click()
-    while True:
-        if len(await page.get_by_role("button", name=APPROVAL_FLOW_TITLE).all()) > 0:
-            li = page.get_by_role("button", name=APPROVAL_FLOW_TITLE).first
-            title = li.text_content()
-            await li.click()
-            await page.get_by_text("Select an option").click()
-            await page.get_by_role("option", name="Approve").click()
-            await page.get_by_role("button", name="Confirm").click()
-            await page.get_by_role("button", name="Done").click()
-            logging.info(f"Cleanup {title}!")
-        else:
-            break
+    # while True:
+    #     if len(await page.get_by_role("button", name=APPROVAL_FLOW_TITLE).all()) > 0:
+    #         li = page.get_by_role("button", name=APPROVAL_FLOW_TITLE).first
+    #         title = li.text_content()
+    #         await li.click()
+    #         await page.get_by_text("Select an option").click()
+    #         await page.get_by_role("option", name="Approve").click()
+    #         await page.get_by_role("button", name="Confirm").click()
+    #         await page.get_by_role("button", name="Done").click()
+    #         logging.info(f"Cleanup {title}!")
+    #     else:
+    #         break
