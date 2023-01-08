@@ -72,14 +72,15 @@ def test_approval_mail(context: BrowserContext) -> None:
         with page.expect_popup() as popup:
             page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.dblclick()
         page_popup = popup.value
-        if page_popup.get_by_role("button", name="Approve").is_visible():
-            page_popup.get_by_role("button", name="Approve").click()
-        else:
-            page_popup.close()
-            with page.expect_popup() as popup:
-                page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.dblclick()
-            page_popup = popup.value
-            page_popup.get_by_role("button", name="Approve").click()
+        while True:
+            if not expect(page_popup.get_by_role("button", name="Approve")).to_be_visible():
+                page_popup.close()
+                with page.expect_popup() as popup:
+                    page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.dblclick()
+                page_popup = popup.value
+            else:
+                break
+        page_popup.get_by_role("button", name="Approve").click()
         page_popup.get_by_role("button", name="Submit").click()
         page_popup.wait_for_load_state()
         expect(page_popup.locator("'Approved'")).to_be_visible()
