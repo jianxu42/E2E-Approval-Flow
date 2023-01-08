@@ -75,8 +75,7 @@ def test_approval_teams(context: BrowserContext) -> None:
         page.get_by_role("button", name="Approvals Toolbar").click()
 
         approval_tab_view.get_by_role("gridcell", name=APPROVAL_FLOW_TITLE_FOR_TEAMS).click()
-        locator = approval_tab_view.locator("'Final status: Approved'")
-        expect(locator).to_contain_text("Final status: Approved", timeout=30000)
+        expect(approval_tab_view.locator("'Final status: Approved'")).to_be_visible()
         logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_TEAMS} from Teams!")
 
     except (TimeoutError, AssertionError) as e:

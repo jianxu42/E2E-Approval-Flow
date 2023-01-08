@@ -67,8 +67,8 @@ def test_approval_mail(context: BrowserContext) -> None:
 
         page.wait_for_load_state()
         page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
-        # We have set the render time for the adaptive card from the server to be 5 seconds for now, but this may change depending on various factors.
-        time.sleep(5)
+        # We have set the render time for the adaptive card from the server to be 10 seconds for now, but this may change depending on various factors.
+        time.sleep(10)
         with page.expect_popup() as popup:
             page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.dblclick()
         page_popup = popup.value
@@ -82,8 +82,7 @@ def test_approval_mail(context: BrowserContext) -> None:
             page_popup.get_by_role("button", name="Approve").click()
         page_popup.get_by_role("button", name="Submit").click()
 
-        locator = page_popup.locator("'Approved'")
-        expect(locator).to_contain_text("Approved", timeout=30000)
+        expect(page_popup.locator("'Approved'")).to_be_visible()
         logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_MAIL} from mail!")
 
     except (TimeoutError, AssertionError) as e:
