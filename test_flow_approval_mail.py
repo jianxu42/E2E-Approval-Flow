@@ -67,8 +67,8 @@ def test_approval_mail(context: BrowserContext) -> None:
 
         page.wait_for_load_state()
         page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
-        # this depends on the render time for adaptive card from the server, set 8 seconds for now
-        time.sleep(8)
+        # We have set the render time for the adaptive card from the server to be 5 seconds for now, but this may change depending on various factors.
+        time.sleep(5)
         with page.expect_popup() as popup:
             page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.dblclick()
         page_popup = popup.value
