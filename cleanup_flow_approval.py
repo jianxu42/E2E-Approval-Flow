@@ -12,7 +12,7 @@ TEST_APPROVAL_PORTAL = os.environ['TEST_APPROVAL_PORTAL']
 
 def test_cleanup_approval_flow(context: BrowserContext):
     page = context.new_page()
-    page.set_default_timeout(timeout=180000)
+    # page.set_default_timeout(timeout=30000)
     page.goto(TEST_APPROVAL_PORTAL)
     page.get_by_placeholder("Email, phone, or Skype").click()
     page.get_by_placeholder("Email, phone, or Skype").fill(TEST_USER)
