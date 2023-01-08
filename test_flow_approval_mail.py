@@ -70,7 +70,7 @@ def test_approval_mail(context: BrowserContext):
                 page.get_by_role("link", name="Approve").click()
             page_approval_portal = approval_portal.value
             page_approval_portal.get_by_role("button", name="Confirm").click()
-            locator = page.locator("'Approved'")
+            locator = page_approval_portal.locator("'Approved'")
             expect(locator).to_contain_text("Approved", timeout=30000)
         else:
             page.get_by_role("button", name="Approve").click()
