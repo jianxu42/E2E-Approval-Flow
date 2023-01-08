@@ -66,7 +66,7 @@ def test_approval_mail(context: BrowserContext):
         logging.info("Login mail successful!")
 
         page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
-        page.wait_for_load_state("networkidle")
+        page.wait_for_load_state()
         page.get_by_role("menuitem", name="More mail actions").click()
         page.get_by_role("menuitem", name="View").filter(has_text="View").click()
         with page.expect_popup() as popup_page:
