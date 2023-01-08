@@ -1,8 +1,10 @@
-import logging
 import os
 
+import nest_asyncio
 import pytest
 from playwright.async_api import BrowserContext
+
+nest_asyncio.apply()
 
 APPROVAL_FLOW_TITLE = 'test_approval'
 TEST_USER = os.environ['TEST_USER']
