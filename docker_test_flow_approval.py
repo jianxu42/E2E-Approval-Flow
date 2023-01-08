@@ -126,17 +126,12 @@ def test_approval_mail(context: BrowserContext):
     page.get_by_role("button", name="Yes").click()
     logging.info("Login mail successful!")
 
-    page.wait_for_load_state()
-    page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
-    with page.expect_popup() as popup:
-        page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.dblclick()
-    page_popup = popup.value
     while True:
+        with page.expect_popup() as popup:
+            page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.dblclick()
+        page_popup = popup.value
         if not page_popup.get_by_role("button", name="Approve").is_visible():
             page_popup.close()
-            with page.expect_popup() as popup:
-                page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.dblclick()
-            page_popup = popup.value
         else:
             break
     page_popup.get_by_role("button", name="Approve").click()
