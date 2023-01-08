@@ -25,10 +25,8 @@ def test_cleanup_approval_flow(context: BrowserContext):
     if page.get_by_role("button", name="Close").is_visible():
         page.get_by_role("button", name="Close").click()
     while True:
-        target = page.get_by_role("button", name=APPROVAL_FLOW_TITLE).all()
-        logging.info(f"Found {len(target)} items to cleanup!")
-        if len(target) > 0:
-            for li in target:
+        if len(page.get_by_role("button", name=APPROVAL_FLOW_TITLE).all()) > 0:
+            for li in page.get_by_role("button", name=APPROVAL_FLOW_TITLE).all():
                 li.click()
                 page.get_by_text("Select an option").click()
                 page.get_by_role("option", name="Approve").click()
