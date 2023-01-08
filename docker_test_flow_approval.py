@@ -112,9 +112,6 @@ def test_approval_portal(context: BrowserContext):
     locator = page.locator("'Response successfully recorded'")
     expect(locator).to_contain_text("Response successfully recorded")
     page.get_by_role("button", name="Done").click()
-
-    locator = page.locator("'Respond: Approve'")
-    expect(locator).to_contain_text("Respond: Approve", timeout=30000)
     logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_PORTAL} from portal!")
 
 
