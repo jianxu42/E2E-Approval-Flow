@@ -1,6 +1,5 @@
 import logging
 import os
-import time
 
 from playwright.sync_api import BrowserContext
 
@@ -38,4 +37,3 @@ def test_cleanup_approval_flow(context: BrowserContext):
                 logging.info(f"Cleanup {li.text_content()}!")
         else:
             break
-        time.sleep(1)
