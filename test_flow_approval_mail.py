@@ -69,7 +69,6 @@ def test_approval_mail(context: BrowserContext):
         if not page.get_by_role("button", name="Approve").is_visible():
             page.reload()
             page.get_by_text(APPROVAL_FLOW_TITLE_FOR_MAIL).first.click()
-            page.wait_for_load_state()
         page.get_by_role("button", name="Approve").click()
         page.get_by_role("button", name="Submit").click()
 
