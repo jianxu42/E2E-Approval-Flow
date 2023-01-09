@@ -5,7 +5,7 @@ from datetime import datetime as dt_dt
 from typing import Generator
 
 import pytest
-from playwright.sync_api import Playwright, APIRequestContext, expect, BrowserContext, TimeoutError
+from playwright.sync_api import Playwright, APIRequestContext, expect, BrowserContext, Error
 
 APPROVAL_FLOW_TITLE_FOR_PORTAL = ''
 PORTAL_FLOW_LOCATION = ''
@@ -79,7 +79,7 @@ def test_approval_portal(context: BrowserContext) -> None:
         expect(page.locator("'Response successfully recorded'")).to_be_visible(timeout=30000)
         logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_PORTAL} from portal!")
 
-    except (TimeoutError, AssertionError) as e:
+    except Error as e:
         page.screenshot(path="portal_error.png")
         logging.error(e)
         exit(1)
