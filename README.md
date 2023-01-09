@@ -35,3 +35,6 @@ graph LR
 - [Docker](https://www.docker.com/)
 - [Foresight](https://www.runforesight.com/)
 - [Synthetic Monitoring Tests](https://microsoft.github.io/code-with-engineering-playbook/automated-testing/synthetic-monitoring-tests/)
+
+#### License
+Apache License 2.0
