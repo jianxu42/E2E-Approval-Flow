@@ -63,7 +63,7 @@ def test_approval_portal(context: BrowserContext) -> None:
         page.get_by_role("button", name="Yes").click()
         logging.info("Login portal successful!")
 
-        page.wait_for_load_state("networkidle")
+        page.wait_for_load_state()
         while True:
             if page.get_by_role("button", name="Close").is_visible():
                 page.get_by_role("button", name="Close").click()
