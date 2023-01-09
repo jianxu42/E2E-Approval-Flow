@@ -114,8 +114,7 @@ def test_approval_portal(context: BrowserContext):
     page.get_by_role("option", name="Approve").click()
     page.get_by_role("button", name="Confirm").click()
     page.wait_for_load_state()
-    expect(page.locator("'Response successfully recorded'")).to_be_visible(timeout=30000) or expect(
-        page.locator("'Respond: Approved'")).to_be_visible(timeout=30000)
+    expect(page.locator("'Response successfully recorded'")).to_be_visible(timeout=30000)
     logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_PORTAL} from portal!")
 
 
