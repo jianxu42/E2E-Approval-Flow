@@ -3,7 +3,7 @@
 The purpose of this verification is to ensure the end-to-end functionality of the approval process.
 It can be deployed on k8s or GitHub Actions.
 
-[![Synthetic Tests](https://github.com/jianxu42/E2E-Approval-Flow/actions/workflows/sch.yml/badge.svg?branch=main)](https://github.com/jianxu42/E2E-Approval-Flow/actions/workflows/sch.yml)
+[![Synthetic Tests](https://github.com/jianxu42/E2E-Approval-Flow/actions/workflows/synthetic-tests.yml/badge.svg?branch=main)](https://github.com/jianxu42/E2E-Approval-Flow/actions/workflows/synthetic-tests.yml)
 [![Cleanup](https://github.com/jianxu42/E2E-Approval-Flow/actions/workflows/cleanup.yml/badge.svg)](https://github.com/jianxu42/E2E-Approval-Flow/actions/workflows/cleanup.yml)
 [![Docker Image CI](https://github.com/jianxu42/E2E-Approval-Flow/actions/workflows/docker-image.yml/badge.svg)](https://github.com/jianxu42/E2E-Approval-Flow/actions/workflows/docker-image.yml)
 
