@@ -5,7 +5,7 @@ from datetime import datetime as dt_dt
 from typing import Generator
 
 import pytest
-from playwright.sync_api import expect, Playwright, APIRequestContext, BrowserContext, TimeoutError
+from playwright.sync_api import expect, Playwright, APIRequestContext, BrowserContext, Error
 
 APPROVAL_FLOW_TITLE_FOR_TEAMS = ''
 TEAMS_FLOW_LOCATION = ''
@@ -77,7 +77,7 @@ def test_approval_teams(context: BrowserContext) -> None:
         expect(approval_tab_view.locator("'Final status: Approved'")).to_be_visible()
         logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_TEAMS} from Teams!")
 
-    except (TimeoutError, AssertionError) as e:
+    except Error as e:
         page.screenshot(path="teams_error.png")
         logging.error(e)
         exit(1)

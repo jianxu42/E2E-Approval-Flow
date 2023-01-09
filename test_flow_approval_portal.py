@@ -64,13 +64,10 @@ def test_approval_portal(context: BrowserContext) -> None:
         logging.info("Login portal successful!")
 
         page.wait_for_load_state()
-        while True:
-            if page.get_by_role("button", name="Close").is_visible():
-                page.get_by_role("button", name="Close").click()
-            if not page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").is_visible():
-                page.reload()
-            else:
-                break
+        if page.get_by_role("button", name="Close").is_visible():
+            page.get_by_role("button", name="Close").click()
+        if not page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").is_visible():
+            page.reload()
         page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").click()
         page.get_by_text("Select an option").click()
         page.get_by_role("option", name="Approve").click()
