@@ -5,6 +5,7 @@ on:
     branches: [ "main" ]
     paths:
       - 'docker_test_flow_approval.py'
+      - 'requirements.txt'
       - 'pytest.ini'
       - 'Dockerfile'
       - '.github/workflows/docker-image.yml'
