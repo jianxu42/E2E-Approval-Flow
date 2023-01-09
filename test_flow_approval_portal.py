@@ -1,7 +1,6 @@
 import datetime as dt
 import logging
 import os
-import time
 from datetime import datetime as dt_dt
 from typing import Generator
 
@@ -50,7 +49,6 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 
 
 def test_approval_portal(context: BrowserContext) -> None:
-    time.sleep(3)
     page = context.new_page()
     page.set_default_timeout(timeout=60000)
     try:
@@ -66,8 +64,13 @@ def test_approval_portal(context: BrowserContext) -> None:
         logging.info("Login portal successful!")
 
         page.wait_for_load_state("networkidle")
-        if page.get_by_role("button", name="Close").is_visible():
-            page.get_by_role("button", name="Close").click()
+        while True:
+            if page.get_by_role("button", name="Close").is_visible():
+                page.get_by_role("button", name="Close").click()
+            if not page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").is_visible():
+                page.reload()
+            else:
+                break
         page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").click()
         page.get_by_text("Select an option").click()
         page.get_by_role("option", name="Approve").click()
