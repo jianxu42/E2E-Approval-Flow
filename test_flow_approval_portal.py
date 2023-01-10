@@ -50,7 +50,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 
 def test_approval_portal(context: BrowserContext) -> None:
     page = context.new_page()
-    page.set_default_timeout(timeout=90000)
+    page.set_default_timeout(timeout=60000)
     try:
         page.goto(TEST_APPROVAL_PORTAL)
 
@@ -63,7 +63,7 @@ def test_approval_portal(context: BrowserContext) -> None:
         page.get_by_role("button", name="Yes").click()
         logging.info("Login portal successful!")
 
-        page.wait_for_load_state("networkidle")
+        page.wait_for_load_state(state="networkidle", timeout=60000)
         if page.get_by_role("button", name="Close").is_visible():
             page.get_by_role("button", name="Close").click()
             logging.info("Found close button and clicked it!")

@@ -19,7 +19,7 @@ def test_cleanup_approval_flow(context: BrowserContext):
     page.get_by_placeholder("Password").fill(TEST_PWD)
     page.get_by_role("button", name="Sign in").click()
     page.get_by_role("button", name="Yes").click()
-    page.wait_for_load_state("networkidle")
+    page.wait_for_load_state(state="networkidle", timeout=60000)
     if page.get_by_role("button", name="Close").is_visible():
         page.get_by_role("button", name="Close").click()
     while True:
