@@ -66,8 +66,10 @@ def test_approval_portal(context: BrowserContext) -> None:
         page.wait_for_load_state()
         if page.get_by_role("button", name="Close").is_visible():
             page.get_by_role("button", name="Close").click()
+            logging.info("Found close button and clicked it!")
         if not page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").is_visible():
             page.reload(wait_until="networkidle")
+            logging.info("Reloaded the portal page!")
         page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").click()
         page.get_by_text("Select an option").click()
         page.get_by_role("option", name="Approve").click()
