@@ -89,7 +89,7 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
 
 def test_approval_portal(context: BrowserContext):
     page = context.new_page()
-    page.set_default_timeout(timeout=60000)
+    page.set_default_timeout(timeout=90000)
     page.goto(TEST_APPROVAL_PORTAL)
 
     page.get_by_placeholder("Email, phone, or Skype").click()
@@ -151,7 +151,7 @@ def test_approval_mail(context: BrowserContext):
 
 def test_approval_teams(context: BrowserContext):
     page = context.new_page()
-    page.set_default_timeout(timeout=60000)
+    page.set_default_timeout(timeout=90000)
     page.goto(TEST_APPROVAL_TEAMS)
 
     page.get_by_placeholder("Email, phone, or Skype").click()
