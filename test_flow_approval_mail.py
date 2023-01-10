@@ -5,7 +5,7 @@ from datetime import datetime as dt_dt
 from typing import Generator
 
 import pytest
-from playwright.sync_api import Playwright, APIRequestContext, BrowserContext, expect, Error
+from playwright.sync_api import Playwright, APIRequestContext, BrowserContext, expect
 
 APPROVAL_FLOW_TITLE_FOR_MAIL = ''
 MAIL_FLOW_LOCATION = ''
@@ -82,7 +82,7 @@ def test_approval_mail(context: BrowserContext) -> None:
             page_popup.locator("'Date Submitted:'")).to_be_visible(timeout=30000)
         logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_MAIL} from mail!")
 
-    except Error as e:
+    except Exception as e:
         page.screenshot(path="mail_page_error.png")
         page_popup.screenshot(path="mail_page_popup_error.png")
         logging.error(e)

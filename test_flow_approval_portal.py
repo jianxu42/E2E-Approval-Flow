@@ -5,7 +5,7 @@ from datetime import datetime as dt_dt
 from typing import Generator
 
 import pytest
-from playwright.sync_api import Playwright, APIRequestContext, expect, BrowserContext, Error
+from playwright.sync_api import Playwright, APIRequestContext, expect, BrowserContext
 
 APPROVAL_FLOW_TITLE_FOR_PORTAL = ''
 PORTAL_FLOW_LOCATION = ''
@@ -67,7 +67,7 @@ def test_approval_portal(context: BrowserContext) -> None:
         if page.get_by_role("button", name="Close").is_visible():
             page.get_by_role("button", name="Close").click()
         if not page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").is_visible():
-            page.reload()
+            page.reload(wait_until="networkidle")
         page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").click()
         page.get_by_text("Select an option").click()
         page.get_by_role("option", name="Approve").click()
@@ -76,7 +76,7 @@ def test_approval_portal(context: BrowserContext) -> None:
         expect(page.locator("'Response successfully recorded'")).to_be_visible(timeout=30000)
         logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_PORTAL} from portal!")
 
-    except Error as e:
+    except Exception as e:
         page.screenshot(path="portal_error.png")
         logging.error(e)
         exit(1)
