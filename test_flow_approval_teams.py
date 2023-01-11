@@ -58,6 +58,8 @@ def test_approval_teams(context: BrowserContext) -> None:
         page.get_by_placeholder("Email, phone, or Skype").click()
         page.get_by_placeholder("Email, phone, or Skype").fill(TEST_USER)
         page.get_by_role("button", name="Next").click()
+        if page.locator("'Work or school account'").is_visible():
+            page.locator("'Work or school account'").click()
         page.get_by_placeholder("Password").click()
         page.get_by_placeholder("Password").fill(TEST_PWD)
         page.get_by_role("button", name="Sign in").click()
