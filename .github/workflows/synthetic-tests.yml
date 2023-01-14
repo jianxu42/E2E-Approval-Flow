@@ -42,7 +42,7 @@ jobs:
           python -m playwright install chromium
       - name: Test with pytest
         run: |
-          pytest -p no:asyncio test_flow_approval_${{matrix.client}}.py
+          pytest test_flow_approval_${{matrix.client}}.py
       - name: Upload trace
         if: failure()
         uses: actions/upload-artifact@v3
@@ -82,7 +82,7 @@ jobs:
           python -m playwright install chromium
       - name: Test with pytest
         run: |
-          pytest -p no:asyncio test_flow_approval_${{matrix.client}}.py
+          pytest test_flow_approval_${{matrix.client}}.py
       - name: Upload trace
         if: failure()
         uses: actions/upload-artifact@v3
@@ -122,7 +122,7 @@ jobs:
           python -m playwright install chromium
       - name: Test with pytest
         run: |
-          pytest -p no:asyncio test_flow_approval_${{matrix.client}}.py
+          pytest test_flow_approval_${{matrix.client}}.py
       - name: Upload trace
         if: failure()
         uses: actions/upload-artifact@v3
@@ -162,7 +162,7 @@ jobs:
           python -m playwright install chromium
       - name: Test with pytest
         run: |
-          pytest -p no:asyncio test_flow_approval_${{matrix.client}}.py
+          pytest test_flow_approval_${{matrix.client}}.py
       - name: Upload trace
         if: failure()
         uses: actions/upload-artifact@v3
