@@ -5,8 +5,7 @@ from datetime import datetime as dt_dt
 from typing import Generator
 
 import pytest
-from playwright.async_api import expect, BrowserContext
-from playwright.sync_api import Playwright, APIRequestContext
+from playwright.sync_api import Playwright, APIRequestContext, expect, BrowserContext
 
 APPROVAL_FLOW_TITLE_FOR_PORTAL = ''
 PORTAL_FLOW_LOCATION = ''
@@ -49,40 +48,39 @@ def test_trigger_approval_flow(api_request_context: APIRequestContext) -> None:
     logging.info(f"The approval flow {APPROVAL_FLOW_TITLE_FOR_PORTAL} for portal was triggered!")
 
 
-@pytest.mark.asyncio_cooperative
 async def test_approval_portal(context: BrowserContext) -> None:
-    page = await context.new_page()
+    page = context.new_page()
     page.set_default_timeout(timeout=60000)
     try:
-        await page.goto(TEST_APPROVAL_PORTAL)
+        page.goto(TEST_APPROVAL_PORTAL)
 
-        await page.get_by_placeholder("Email, phone, or Skype").click()
-        await page.get_by_placeholder("Email, phone, or Skype").fill(TEST_USER)
-        await page.get_by_role("button", name="Next").click()
-        if await page.locator("'Work or school account'").is_visible():
-            await page.locator("'Work or school account'").click()
-        await page.get_by_placeholder("Password").click()
-        await page.get_by_placeholder("Password").fill(TEST_PWD)
-        await page.get_by_role("button", name="Sign in").click()
-        await page.get_by_role("button", name="Yes").click()
+        page.get_by_placeholder("Email, phone, or Skype").click()
+        page.get_by_placeholder("Email, phone, or Skype").fill(TEST_USER)
+        page.get_by_role("button", name="Next").click()
+        if page.locator("'Work or school account'").is_visible():
+            page.locator("'Work or school account'").click()
+        page.get_by_placeholder("Password").click()
+        page.get_by_placeholder("Password").fill(TEST_PWD)
+        page.get_by_role("button", name="Sign in").click()
+        page.get_by_role("button", name="Yes").click()
         logging.info("Login portal successful!")
 
-        await page.wait_for_load_state(state="networkidle", timeout=60000)
-        if await page.get_by_role("button", name="Close").is_visible():
-            await page.get_by_role("button", name="Close").click()
+        page.wait_for_load_state(state="networkidle", timeout=60000)
+        if page.get_by_role("button", name="Close").is_visible():
+            page.get_by_role("button", name="Close").click()
             logging.info("Found close button and clicked it!")
         if not page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").is_visible():
-            await page.reload(wait_until="networkidle")
+            page.reload(wait_until="networkidle")
             logging.info("Reloaded the portal page!")
-        await page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").click()
-        await page.get_by_text("Select an option").click()
-        await page.get_by_role("option", name="Approve").click()
-        await page.get_by_role("button", name="Confirm").click()
-        await page.wait_for_load_state()
-        await expect(page.locator("'Response successfully recorded'")).to_be_visible(timeout=30000)
+        page.get_by_role("button", name=f"{APPROVAL_FLOW_TITLE_FOR_PORTAL}").click()
+        page.get_by_text("Select an option").click()
+        page.get_by_role("option", name="Approve").click()
+        page.get_by_role("button", name="Confirm").click()
+        page.wait_for_load_state()
+        expect(page.locator("'Response successfully recorded'")).to_be_visible(timeout=30000)
         logging.info(f"Approved {APPROVAL_FLOW_TITLE_FOR_PORTAL} from portal!")
 
     except Exception as e:
-        await page.screenshot(path="portal_error.png")
+        page.screenshot(path="portal_error.png")
         logging.error(e)
         exit(1)
