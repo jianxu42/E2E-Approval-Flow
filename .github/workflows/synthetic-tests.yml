@@ -10,7 +10,7 @@ on:
       - 'test_flow_approval_portal.py'
       - 'test_flow_approval_teams.py'
   schedule:
-    - cron: '*/5 * * * *'
+    - cron: '*/10 * * * *'
 jobs:
   Asia:
     runs-on: ubuntu-latest
