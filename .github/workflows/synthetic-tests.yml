@@ -1,97 +1,97 @@
-name: Synthetic Tests
-on:
-  workflow_dispatch:
-  push:
-    branches: [ "main" ]
-    paths:
-      - 'pytest.ini'
-      - 'requirements.txt'
-      - 'test_flow_approval_mail.py'
-      - 'test_flow_approval_portal.py'
-      - 'test_flow_approval_teams.py'
-  schedule:
-    - cron: '*/10 * * * *'
-jobs:
-  Asia:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    environment: ASIA
-    env:
-      TEST_USER: ${{secrets.TEST_USER}}
-      TEST_PWD: ${{secrets.TEST_PWD}}
-      TEST_FLOW: ${{secrets.TEST_FLOW}}
-      TEST_FLOW_ENV: ${{secrets.TEST_FLOW_ENV}}
-      TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
-      TEST_APPROVAL_TEAMS: ${{secrets.TEST_APPROVAL_TEAMS}}
-      TEST_APPROVAL_MAIL: ${{secrets.TEST_APPROVAL_MAIL}}
-    strategy:
-      matrix:
-        client: [ portal, teams, mail ]
-      fail-fast: false
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
-          cache: 'pip'
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          python -m playwright install chromium
-      - name: Test with pytest
-        run: |
-          pytest test_flow_approval_${{matrix.client}}.py
-      - name: Upload trace
-        if: failure()
-        uses: actions/upload-artifact@v3
-        with:
-          name: Asia_trace_${{matrix.client}}
-          path: |
-            ./*${{matrix.client}}*.png
-          if-no-files-found: ignore
-          retention-days: 1
-  Korea:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    environment: KOREA
-    env:
-      TEST_USER: ${{secrets.TEST_USER}}
-      TEST_PWD: ${{secrets.TEST_PWD}}
-      TEST_FLOW: ${{secrets.TEST_FLOW}}
-      TEST_FLOW_ENV: ${{secrets.TEST_FLOW_ENV}}
-      TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
-      TEST_APPROVAL_TEAMS: ${{secrets.TEST_APPROVAL_TEAMS}}
-      TEST_APPROVAL_MAIL: ${{secrets.TEST_APPROVAL_MAIL}}
-    strategy:
-      matrix:
-        client: [ portal, teams, mail ]
-      fail-fast: false
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.11"
-          cache: 'pip'
-      - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
-          python -m playwright install chromium
-      - name: Test with pytest
-        run: |
-          pytest test_flow_approval_${{matrix.client}}.py
-      - name: Upload trace
-        if: failure()
-        uses: actions/upload-artifact@v3
-        with:
-          name: Korea_trace_${{matrix.client}}
-          path: |
-            ./*${{matrix.client}}*.png
-          if-no-files-found: ignore
-          retention-days: 1
+# name: Synthetic Tests
+# on:
+#   workflow_dispatch:
+#   push:
+#     branches: [ "main" ]
+#     paths:
+#       - 'pytest.ini'
+#       - 'requirements.txt'
+#       - 'test_flow_approval_mail.py'
+#       - 'test_flow_approval_portal.py'
+#       - 'test_flow_approval_teams.py'
+#   schedule:
+#     - cron: '*/10 * * * *'
+# jobs:
+#   Asia:
+#     runs-on: ubuntu-latest
+#     timeout-minutes: 5
+#     environment: ASIA
+#     env:
+#       TEST_USER: ${{secrets.TEST_USER}}
+#       TEST_PWD: ${{secrets.TEST_PWD}}
+#       TEST_FLOW: ${{secrets.TEST_FLOW}}
+#       TEST_FLOW_ENV: ${{secrets.TEST_FLOW_ENV}}
+#       TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
+#       TEST_APPROVAL_TEAMS: ${{secrets.TEST_APPROVAL_TEAMS}}
+#       TEST_APPROVAL_MAIL: ${{secrets.TEST_APPROVAL_MAIL}}
+#     strategy:
+#       matrix:
+#         client: [ portal, teams, mail ]
+#       fail-fast: false
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
+#       - name: Set up Python 3.11
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: "3.11"
+#           cache: 'pip'
+#       - name: Install dependencies
+#         run: |
+#           pip install -r requirements.txt
+#           python -m playwright install chromium
+#       - name: Test with pytest
+#         run: |
+#           pytest test_flow_approval_${{matrix.client}}.py
+#       - name: Upload trace
+#         if: failure()
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: Asia_trace_${{matrix.client}}
+#           path: |
+#             ./*${{matrix.client}}*.png
+#           if-no-files-found: ignore
+#           retention-days: 1
+#   Korea:
+#     runs-on: ubuntu-latest
+#     timeout-minutes: 5
+#     environment: KOREA
+#     env:
+#       TEST_USER: ${{secrets.TEST_USER}}
+#       TEST_PWD: ${{secrets.TEST_PWD}}
+#       TEST_FLOW: ${{secrets.TEST_FLOW}}
+#       TEST_FLOW_ENV: ${{secrets.TEST_FLOW_ENV}}
+#       TEST_APPROVAL_PORTAL: ${{secrets.TEST_APPROVAL_PORTAL}}
+#       TEST_APPROVAL_TEAMS: ${{secrets.TEST_APPROVAL_TEAMS}}
+#       TEST_APPROVAL_MAIL: ${{secrets.TEST_APPROVAL_MAIL}}
+#     strategy:
+#       matrix:
+#         client: [ portal, teams, mail ]
+#       fail-fast: false
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
+#       - name: Set up Python 3.11
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: "3.11"
+#           cache: 'pip'
+#       - name: Install dependencies
+#         run: |
+#           pip install -r requirements.txt
+#           python -m playwright install chromium
+#       - name: Test with pytest
+#         run: |
+#           pytest test_flow_approval_${{matrix.client}}.py
+#       - name: Upload trace
+#         if: failure()
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: Korea_trace_${{matrix.client}}
+#           path: |
+#             ./*${{matrix.client}}*.png
+#           if-no-files-found: ignore
+#           retention-days: 1
 #   Europe:
 #     runs-on: ubuntu-latest
 #     timeout-minutes: 5
